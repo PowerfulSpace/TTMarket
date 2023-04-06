@@ -37,7 +37,7 @@ namespace TTMarket.Products.API.Controllers
         public async Task<IActionResult> Put(Product product)
             => Ok(await Mediator.Send(new UpdateCommand(product)));
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(Guid id)
