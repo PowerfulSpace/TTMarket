@@ -4,7 +4,7 @@ using TTMarket.Products.Infrastructure.Logging;
 
 namespace TTMarket.Products.Infrastructure
 {
-    public static class InfrastructureService
+    public static class InfrastructureServiceRegistration
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
         {
