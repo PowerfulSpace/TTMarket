@@ -3,6 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B5C90BC5-E5DA-44BA-BD93-18055097D34D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TTMarket.Products", "TTMarket.Products", "{B8194D79-6E00-4A40-931E-2B6A1965C00D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTMarket.Products.API", "Services\TTMarket.Products\TTMarket.Products.API\TTMarket.Products.API.csproj", "{BBB10CD4-FC46-40F4-A587-BE3E9EDD1C8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTMarket.Products.Application", "Services\TTMarket.Products\Core\TTMarket.Products.Application\TTMarket.Products.Application.csproj", "{A4D689EA-4236-4BAD-9999-41BF1F30D9CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTMarket.Products.Domain", "Services\TTMarket.Products\Core\TTMarket.Products.Domain\TTMarket.Products.Domain.csproj", "{30F0201C-AAA3-471E-A00C-970E1BB63DC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTMarket.Products.Persistence", "Services\TTMarket.Products\Infrastructure\TTMarket.Products.Persistence\TTMarket.Products.Persistence.csproj", "{25A6D725-A06B-4261-8096-0ADC82ADAB8A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{35BF813C-476D-46B8-B71F-54C0DEE76400}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTMarket.Products.Infrastructure", "Services\TTMarket.Products\Infrastructure\TTMarket.Products.Infrastructure\TTMarket.Products.Infrastructure.csproj", "{FB472802-B3BE-4672-8440-DA315B1B60DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +26,36 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBB10CD4-FC46-40F4-A587-BE3E9EDD1C8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBB10CD4-FC46-40F4-A587-BE3E9EDD1C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBB10CD4-FC46-40F4-A587-BE3E9EDD1C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBB10CD4-FC46-40F4-A587-BE3E9EDD1C8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4D689EA-4236-4BAD-9999-41BF1F30D9CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4D689EA-4236-4BAD-9999-41BF1F30D9CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4D689EA-4236-4BAD-9999-41BF1F30D9CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4D689EA-4236-4BAD-9999-41BF1F30D9CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30F0201C-AAA3-471E-A00C-970E1BB63DC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F0201C-AAA3-471E-A00C-970E1BB63DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F0201C-AAA3-471E-A00C-970E1BB63DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F0201C-AAA3-471E-A00C-970E1BB63DC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25A6D725-A06B-4261-8096-0ADC82ADAB8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25A6D725-A06B-4261-8096-0ADC82ADAB8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25A6D725-A06B-4261-8096-0ADC82ADAB8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25A6D725-A06B-4261-8096-0ADC82ADAB8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB472802-B3BE-4672-8440-DA315B1B60DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB472802-B3BE-4672-8440-DA315B1B60DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB472802-B3BE-4672-8440-DA315B1B60DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB472802-B3BE-4672-8440-DA315B1B60DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B8194D79-6E00-4A40-931E-2B6A1965C00D} = {B5C90BC5-E5DA-44BA-BD93-18055097D34D}
+		{BBB10CD4-FC46-40F4-A587-BE3E9EDD1C8C} = {B8194D79-6E00-4A40-931E-2B6A1965C00D}
+		{A4D689EA-4236-4BAD-9999-41BF1F30D9CD} = {B8194D79-6E00-4A40-931E-2B6A1965C00D}
+		{30F0201C-AAA3-471E-A00C-970E1BB63DC8} = {B8194D79-6E00-4A40-931E-2B6A1965C00D}
+		{25A6D725-A06B-4261-8096-0ADC82ADAB8A} = {B8194D79-6E00-4A40-931E-2B6A1965C00D}
+		{35BF813C-476D-46B8-B71F-54C0DEE76400} = {B8194D79-6E00-4A40-931E-2B6A1965C00D}
+		{FB472802-B3BE-4672-8440-DA315B1B60DB} = {35BF813C-476D-46B8-B71F-54C0DEE76400}
 	EndGlobalSection
 EndGlobal
