@@ -4,7 +4,7 @@ using TTMarket.Products.Domain.Common;
 
 namespace TTMarket.Products.Domain
 {
-    public class Product : BaseEntity
+    public class Product : Document
     {
         public int Price { get; set; }
         public string ShortDescription { get; set; }

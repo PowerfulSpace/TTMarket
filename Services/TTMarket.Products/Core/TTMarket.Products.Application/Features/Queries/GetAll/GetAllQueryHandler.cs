@@ -7,16 +7,16 @@ using TTMarket.Products.Domain;
 
 namespace TTMarket.Products.Application.Features.Queries.GetAll
 {
-    internal class GetAllQueryHandler : IRequestHandler<GetAllQuery, IReadOnlyList<Product>>
+    internal class GetAllQueryHandler : IRequestHandler<GetAllQuery, IEnumerable<Product>>
     {
         readonly IProductRepository _repository;
 
         public GetAllQueryHandler(IProductRepository repository)
             => _repository = repository;
 
-        public async Task<IReadOnlyList<Product>> Handle(GetAllQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Product>> Handle(GetAllQuery request, CancellationToken cancellationToken)
         {
-            var data = await _repository.GetAsync(cancellationToken);
+            var data = await _repository.GetAllAsync(cancellationToken);
 
             return data;
         }

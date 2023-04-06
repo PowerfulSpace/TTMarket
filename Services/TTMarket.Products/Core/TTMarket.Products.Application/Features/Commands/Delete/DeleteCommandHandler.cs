@@ -20,7 +20,7 @@ namespace TTMarket.Products.Application.Features.Commands.Delete
             if (!exists)
                 throw new NotFoundException(request.Id.ToString());
 
-            await _repository.DeleteAsync(request.Id, cancellationToken);
+            await _repository.DeleteByIdAsync(request.Id, cancellationToken);
 
             return Unit.Value;
         }

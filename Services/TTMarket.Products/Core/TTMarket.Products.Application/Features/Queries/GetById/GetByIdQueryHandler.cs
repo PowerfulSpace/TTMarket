@@ -16,7 +16,7 @@ namespace TTMarket.Products.Application.Features.Queries.GetById
 
         public async Task<Product> Handle(GetByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _repository.GetByIdAsync(request.Id, cancellationToken);
+            var product = await _repository.FindByIdAsync(request.Id, cancellationToken);
 
             if (product is null)
                 throw new NotFoundException(request.Id.ToString());

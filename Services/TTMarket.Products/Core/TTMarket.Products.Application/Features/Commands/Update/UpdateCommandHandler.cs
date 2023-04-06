@@ -20,7 +20,7 @@ namespace TTMarket.Products.Application.Features.Commands.Update
             if (!exists)
                 throw new NotFoundException(request.Id.ToString());
             
-            await _repository.UpdateAsync(request.Product, cancellationToken);
+            await _repository.ReplaceOneAsync(request.Product, cancellationToken);
 
             return Unit.Value;
         }

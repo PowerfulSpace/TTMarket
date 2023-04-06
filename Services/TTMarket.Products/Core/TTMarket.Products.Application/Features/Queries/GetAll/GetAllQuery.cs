@@ -4,5 +4,5 @@ using TTMarket.Products.Domain;
 
 namespace TTMarket.Products.Application.Features.Queries.GetAll
 {
-    public record GetAllQuery : IRequest<IReadOnlyList<Product>>;
+    public record GetAllQuery : IRequest<IEnumerable<Product>>;
 }

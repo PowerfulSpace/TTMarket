@@ -14,7 +14,7 @@ namespace TTMarket.Products.Application.Features.Commands.Create
 
         public async Task<Unit> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
-            await _repository.CreateAsync(request.Product, cancellationToken);
+            await _repository.InsertOneAsync(request.Product, cancellationToken);
             
             return Unit.Value;
         }
