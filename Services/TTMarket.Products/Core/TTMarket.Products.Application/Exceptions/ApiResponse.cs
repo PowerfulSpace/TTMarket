@@ -4,7 +4,15 @@ namespace TTMarket.Products.Application.Exceptions
 {
     public class ApiResponse
     {
+        /// <summary>
+        /// Private field represent of status code exception
+        /// </summary>
+        /// <value>Integer</value>
         readonly int _statusCode;
+        /// <summary>
+        /// Private field represent of message exception
+        /// </summary>
+        /// <value>String</value>
         readonly string _message;
 
         /// <summary>

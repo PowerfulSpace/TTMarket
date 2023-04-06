@@ -15,10 +15,10 @@ namespace TTMarket.Products.Application.Features.Commands.Update
 
         public async Task<Unit> Handle(UpdateCommand request, CancellationToken cancellationToken)
         {
-            var exists = await _repository.ExistsAsync(request.Id, cancellationToken);
+            var exists = await _repository.ExistsAsync(request.Product.Id, cancellationToken);
 
             if (!exists)
-                throw new NotFoundException(request.Id.ToString());
+                throw new NotFoundException(request.Product.Id.ToString());
             
             await _repository.ReplaceOneAsync(request.Product, cancellationToken);
 
