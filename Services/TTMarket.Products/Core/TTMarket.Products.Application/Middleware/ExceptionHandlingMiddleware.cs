@@ -34,7 +34,7 @@ namespace TTMarket.Products.Application.Middleware
                                                Exception exception)
         {
             var statusCode = GetStatusCode(exception);
-            var response = new ApiResponse
+            var response = new ApiErrorResponse
             {
                 title = GetTitle(exception),
                 status = statusCode,

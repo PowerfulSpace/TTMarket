@@ -23,7 +23,7 @@ namespace TTMarket.Products.API.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ProductDetailDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
             => Ok(await Mediator.Send(new GetProductByIdQuery(id), cancellationToken));
 
@@ -34,13 +34,13 @@ namespace TTMarket.Products.API.Controllers
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Put(Guid id, ProductUpdateDto product, CancellationToken cancellationToken)
             => Ok(await Mediator.Send(new UpdateProductCommand(id, product), cancellationToken));
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
             => Ok(await Mediator.Send(new DeleteProductCommand(id), cancellationToken));
     }

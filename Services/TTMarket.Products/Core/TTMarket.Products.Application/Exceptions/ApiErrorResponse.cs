@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace TTMarket.Products.Application.Exceptions
 {
-    public sealed class ApiResponse
+    public sealed class ApiErrorResponse
     {
         public string title { get; set; }
         public int status { get; set; }
