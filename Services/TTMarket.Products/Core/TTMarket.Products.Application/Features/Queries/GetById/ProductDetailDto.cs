@@ -5,7 +5,7 @@ using TTMarket.Products.Domain;
 
 namespace TTMarket.Products.Application.Features.Queries.GetById
 {
-    public class ProductDetailDto : IMapWith<Product>
+    public sealed class ProductDetailDto : IMapWith<Product>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

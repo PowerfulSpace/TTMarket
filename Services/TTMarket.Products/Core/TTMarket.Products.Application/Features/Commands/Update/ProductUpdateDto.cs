@@ -5,7 +5,7 @@ using TTMarket.Products.Domain;
 
 namespace TTMarket.Products.Application.Features.Commands.Update
 {
-    public class ProductUpdateDto : IMapWith<Product>
+    public sealed class ProductUpdateDto : IMapWith<Product>
     {
         public string Name { get; set; }
         public int Price { get; set; }

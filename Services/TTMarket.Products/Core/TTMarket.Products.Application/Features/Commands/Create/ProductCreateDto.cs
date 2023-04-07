@@ -5,7 +5,7 @@ using TTMarket.Products.Domain;
 
 namespace TTMarket.Products.Application.Features.Commands.Create
 {
-    public class ProductCreateDto : IMapWith<Product>
+    public sealed class ProductCreateDto : IMapWith<Product>
     {
         public string Name { get; set; }
         public int Price { get; set; }
