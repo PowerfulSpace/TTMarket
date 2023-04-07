@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using FluentValidation;
 using TTMarket.Products.Application.Contracts.Persistence;
 
-namespace TTMarket.Products.Application.Features.Commands.Create
+namespace TTMarket.Products.Application.Features.Commands.Update
 {
-    public sealed class CreateCommandValidator : AbstractValidator<CreateProductCommand>
+    public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
     {
         readonly IProductRepository _repository;
-
-        public CreateCommandValidator(IProductRepository repository)
+        
+        public UpdateProductCommandValidator(IProductRepository repository)
         {
             _repository = repository;
 
