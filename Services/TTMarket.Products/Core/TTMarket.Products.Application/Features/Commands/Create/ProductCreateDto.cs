@@ -30,7 +30,7 @@ namespace TTMarket.Products.Application.Features.Commands.Create
                    .ForMember(product => product.Description,
                               opt => opt.MapFrom(productCreateDto => productCreateDto.Description))
                    .ForMember(product => product.MainImageUrl,
-                              opt => opt.MapFrom(productCreateDto => productCreateDto.ImageUrls))
+                              opt => opt.MapFrom(productCreateDto => productCreateDto.MainImageUrl))
                    .ForMember(product => product.ImageUrls,
                               opt => opt.MapFrom(productCreateDto => productCreateDto.ImageUrls))
                    .ForMember(product => product.Vendors,
