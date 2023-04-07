@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using TTMarket.Products.Application.Contracts.Mapping;
 
 namespace TTMarket.Products.Application
 {
@@ -10,6 +11,10 @@ namespace TTMarket.Products.Application
             services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly());
+            });
+            services.AddAutoMapper(cfg => 
+            {
+                cfg.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
             });
             return services;
         }

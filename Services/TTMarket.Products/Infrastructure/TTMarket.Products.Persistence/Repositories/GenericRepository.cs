@@ -19,128 +19,156 @@ namespace TTMarket.Products.Persistence.Repositories
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
-            _collection = database.GetCollection<TDocument>(nameof(TDocument));
+            _collection = database.GetCollection<TDocument>(typeof(TDocument).Name);
         }
 
-        public IQueryable<TDocument> AsQueryable()
+        IQueryable<TDocument> IGenericRepository<TDocument>.AsQueryable()
             => _collection.AsQueryable();
 
-        public void DeleteById(Guid id,
-                               CancellationToken cancellationToken)
+        void IGenericRepository<TDocument>.DeleteById(Guid id,
+                                                      CancellationToken cancellationToken)
             => _collection.FindOneAndDelete(filter: Builders<TDocument>.Filter
                                                                        .Eq(x => x.Id, id), 
                                             cancellationToken: cancellationToken);
 
-        public async Task DeleteByIdAsync(Guid id,
-                                          CancellationToken cancellationToken)
+        async Task IGenericRepository<TDocument>.DeleteByIdAsync(Guid id,
+                                                                 CancellationToken cancellationToken)
             => await _collection.FindOneAndDeleteAsync(filter: Builders<TDocument>.Filter
                                                                                   .Eq(x => x.Id, id), 
                                                        cancellationToken: cancellationToken);
 
-        public void DeleteMany(Expression<Func<TDocument, bool>> filterExpression,
-                               CancellationToken cancellationToken)
+        void IGenericRepository<TDocument>.DeleteMany(Expression<Func<TDocument, bool>> filterExpression,
+                                                      CancellationToken cancellationToken)
             => _collection.DeleteMany(filter: filterExpression, 
                                       cancellationToken: cancellationToken);
 
-        public async Task DeleteManyAsync(Expression<Func<TDocument, bool>> filterExpression,
-                                    CancellationToken cancellationToken)
+        async Task IGenericRepository<TDocument>.DeleteManyAsync(Expression<Func<TDocument, bool>> filterExpression,
+                                                                 CancellationToken cancellationToken)
             => await _collection.DeleteManyAsync(filter: filterExpression, 
                                                  cancellationToken: cancellationToken);
 
-        public void DeleteOne(Expression<Func<TDocument, bool>> filterExpression,
-                              CancellationToken cancellationToken)
+        void IGenericRepository<TDocument>.DeleteOne(Expression<Func<TDocument, bool>> filterExpression,
+                                                     CancellationToken cancellationToken)
             => _collection.DeleteOne(filter: filterExpression, 
                                      cancellationToken: cancellationToken);
 
-        public Task DeleteOneAsync(Expression<Func<TDocument, bool>> filterExpression,
-                                   CancellationToken cancellationToken)
+        Task IGenericRepository<TDocument>.DeleteOneAsync(Expression<Func<TDocument, bool>> filterExpression,
+                                                          CancellationToken cancellationToken)
             => _collection.DeleteOneAsync(filter: filterExpression, 
                                           cancellationToken: cancellationToken);
 
-        public void Exists(Guid id,
-                           CancellationToken cancellationToken)
+        void IGenericRepository<TDocument>.Exists(Guid id,
+                                                  CancellationToken cancellationToken)
             => _collection.Find(filter: Builders<TDocument>.Filter
                                                            .Eq(x => x.Id, id))
                           .Any(cancellationToken: cancellationToken);
 
-        public async Task<bool> ExistsAsync(Guid id,
-                                      CancellationToken cancellationToken)
+        async Task<bool> IGenericRepository<TDocument>.ExistsAsync(Guid id,
+                                                                   CancellationToken cancellationToken)
             => await _collection.Find(filter: Builders<TDocument>.Filter
                                                                  .Eq(x => x.Id, id))
                                 .AnyAsync(cancellationToken: cancellationToken);
 
-        public IEnumerable<TDocument> FilterBy(Expression<Func<TDocument, bool>> filterExpression,
-                                               CancellationToken cancellationToken)
+        IEnumerable<TDocument> IGenericRepository<TDocument>.FilterBy(Expression<Func<TDocument, bool>> filterExpression,
+                                                                      CancellationToken cancellationToken)
             => _collection.Find(filter: filterExpression)
                           .ToList(cancellationToken: cancellationToken);
 
-        public IEnumerable<TProjected> FilterBy<TProjected>(Expression<Func<TDocument, bool>> filterExpression,
-                                                            Expression<Func<TDocument, TProjected>> projectionExpression,
-                                                            CancellationToken cancellationToken)
+        IEnumerable<TProjected> IGenericRepository<TDocument>.FilterBy<TProjected>(Expression<Func<TDocument, bool>> filterExpression,
+                                                                                   Expression<Func<TDocument, TProjected>> projectionExpression,
+                                                                                   CancellationToken cancellationToken)
             => _collection.Find(filter: filterExpression)
                           .Project(projection: projectionExpression)
                           .ToList(cancellationToken: cancellationToken);
 
-        public TDocument FindById(Guid id,
-                                  CancellationToken cancellationToken)
+        TDocument IGenericRepository<TDocument>.FindById(Guid id,
+                                                         CancellationToken cancellationToken)
             => _collection.Find(filter: Builders<TDocument>.Filter
                                                            .Eq(x => x.Id, id))
                           .SingleOrDefault(cancellationToken: cancellationToken);
 
-        public async Task<TDocument> FindByIdAsync(Guid id,
-                                                   CancellationToken cancellationToken)
+        async Task<TDocument> IGenericRepository<TDocument>.FindByIdAsync(Guid id,
+                                                                          CancellationToken cancellationToken)
             => await _collection.Find(filter: Builders<TDocument>.Filter
                                                                  .Eq(x => x.Id, id))
                                 .SingleOrDefaultAsync(cancellationToken: cancellationToken);
 
-        public TDocument FindOne(Expression<Func<TDocument, bool>> filterExpression,
-                                 CancellationToken cancellationToken)
+        TDocument IGenericRepository<TDocument>.FindOne(Expression<Func<TDocument, bool>> filterExpression,
+                                                        CancellationToken cancellationToken)
             => _collection.Find(filter: filterExpression)
                           .FirstOrDefault(cancellationToken: cancellationToken);
 
-        public async Task<TDocument> FindOneAsync(Expression<Func<TDocument, bool>> filterExpression,
-                                                  CancellationToken cancellationToken)
+        async Task<TDocument> IGenericRepository<TDocument>.FindOneAsync(Expression<Func<TDocument, bool>> filterExpression,
+                                                                         CancellationToken cancellationToken)
             => await _collection.Find(filter: filterExpression)
                                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
-        public IEnumerable<TDocument> GetAll(CancellationToken cancellationToken)
+        IEnumerable<TDocument> IGenericRepository<TDocument>.GetAll(CancellationToken cancellationToken)
             => _collection.Find(filter: x => true)
                           .ToList(cancellationToken: cancellationToken);
 
-        public async Task<IEnumerable<TDocument>> GetAllAsync(CancellationToken cancellationToken)
+        async Task<IEnumerable<TDocument>> IGenericRepository<TDocument>.GetAllAsync(CancellationToken cancellationToken)
             => await _collection.Find(filter: x => true)
                                 .ToListAsync(cancellationToken: cancellationToken);
 
-        public void InsertMany(ICollection<TDocument> documents,
-                               CancellationToken cancellationToken)
-            => _collection.InsertMany(documents: documents,
-                                      cancellationToken: cancellationToken);
+        void IGenericRepository<TDocument>.InsertMany(ICollection<TDocument> documents,
+                                                      CancellationToken cancellationToken)
+        {
+            foreach (var item in documents)
+            {
+                item.Created = DateTime.Now;
+                item.Updated = null;
+            }
+            _collection.InsertMany(documents: documents,
+                                   cancellationToken: cancellationToken);
+        }
 
-        public async Task InsertManyAsync(ICollection<TDocument> documents,
-                                          CancellationToken cancellationToken)
-            => await _collection.InsertManyAsync(documents: documents,
-                                                 cancellationToken: cancellationToken);
+        async Task IGenericRepository<TDocument>.InsertManyAsync(ICollection<TDocument> documents,
+                                                                 CancellationToken cancellationToken)
+        {
+            foreach (var item in documents)
+            {
+                item.Created = DateTime.Now;
+                item.Updated = null;
+            }
+            await _collection.InsertManyAsync(documents: documents,
+                                              cancellationToken: cancellationToken);
+        }
 
-        public void InsertOne(TDocument document,
-                              CancellationToken cancellationToken)
-            => _collection.InsertOne(document: document,
-                                     cancellationToken: cancellationToken);
+        void IGenericRepository<TDocument>.InsertOne(TDocument document,
+                                                     CancellationToken cancellationToken)
+        {
+            document.Created = DateTime.Now;
+            document.Updated = null;
+            _collection.InsertOne(document: document,
+                                  cancellationToken: cancellationToken);
+        }
 
-        public async Task InsertOneAsync(TDocument document,
-                                         CancellationToken cancellationToken)
-            => await _collection.InsertOneAsync(document: document,
-                                                cancellationToken: cancellationToken);
+        async Task IGenericRepository<TDocument>.InsertOneAsync(TDocument document,
+                                                                CancellationToken cancellationToken)
+        {
+            document.Created = DateTime.Now;
+            document.Updated = null;
+            await _collection.InsertOneAsync(document: document,
+                                             cancellationToken: cancellationToken);
+        }
 
-        public void ReplaceOne(TDocument document,
-                               CancellationToken cancellationToken)
-            => _collection.ReplaceOne(filter: Builders<TDocument>.Filter
-                                                                 .Eq(x => x.Id, document.Id), 
-                                      replacement: document);
+        void IGenericRepository<TDocument>.ReplaceOne(TDocument document,
+                                                      CancellationToken cancellationToken)
+        {
+            document.Updated = DateTime.Now;
+            _collection.ReplaceOne(filter: Builders<TDocument>.Filter
+                                                              .Eq(x => x.Id, document.Id), 
+                                   replacement: document);
+        }
 
-        public async Task ReplaceOneAsync(TDocument document,
-                                    CancellationToken cancellationToken)
-            => await _collection.ReplaceOneAsync(filter: Builders<TDocument>.Filter
-                                                                            .Eq(x => x.Id, document.Id),
-                                                 replacement: document);
+        async Task IGenericRepository<TDocument>.ReplaceOneAsync(TDocument document,
+                                                                 CancellationToken cancellationToken)
+        {
+            document.Updated = DateTime.Now;
+            await _collection.ReplaceOneAsync(filter: Builders<TDocument>.Filter
+                                                                         .Eq(x => x.Id, document.Id),
+                                              replacement: document);
+        }
     }
 }

@@ -32,7 +32,7 @@ try
 
     var app = builder.Build();
     
-    app.UseCors("all");
+    app.UseCors("CorsPolicy");
     app.UseMiddleware<ExceptionMiddleware>();
     app.UseSwagger();
     app.UseSwaggerUI();
