@@ -7,6 +7,7 @@ namespace TTMarket.Products.Application.Features.Queries.GetAll
     public sealed class ProductDto : IMapWith<Product>
     {
         public Guid Id { get; set; }
+        public Guid CategoryId { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string ShortDescription { get; set; }
@@ -17,6 +18,8 @@ namespace TTMarket.Products.Application.Features.Queries.GetAll
             profile.CreateMap<Product, ProductDto>()
                    .ForMember(productDto => productDto.Id,
                               opt => opt.MapFrom(product => product.Id))
+                   .ForMember(productDto => productDto.CategoryId,
+                              opt => opt.MapFrom(product => product.CategoryId))
                    .ForMember(productDto => productDto.Name,
                               opt => opt.MapFrom(product => product.Name))
                    .ForMember(productDto => productDto.Price,

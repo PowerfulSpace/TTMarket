@@ -7,6 +7,7 @@ namespace TTMarket.Products.Application.Features.Commands.Update
 {
     public sealed class ProductUpdateDto : IMapWith<Product>
     {
+        public Guid CategoryId { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string ShortDescription { get; set; }
@@ -21,6 +22,8 @@ namespace TTMarket.Products.Application.Features.Commands.Update
         void IMapWith<Product>.Mapping(AutoMapper.Profile profile)
         {
             profile.CreateMap<ProductUpdateDto, Product>()
+                   .ForMember(product => product.CategoryId,
+                              opt => opt.MapFrom(productUpdateDto => productUpdateDto.CategoryId))
                    .ForMember(product => product.Name,
                               opt => opt.MapFrom(productUpdateDto => productUpdateDto.Name))
                    .ForMember(product => product.Price,

@@ -8,8 +8,8 @@ namespace TTMarket.Products.API.Controllers
     [Route("api/[controller]/[action]")]
     public class BaseApiController : ControllerBase
     {
-        private IMediator _mediator;
-        protected IMediator Mediator 
-            => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+        private ISender _sender;
+        protected ISender Sender 
+            => _sender ??= HttpContext.RequestServices.GetService<ISender>();
     }
 }

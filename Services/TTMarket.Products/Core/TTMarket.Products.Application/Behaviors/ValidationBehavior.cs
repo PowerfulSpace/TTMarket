@@ -4,12 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
+using TTMarket.Products.Application.Contracts.Messaging;
 using ValidationException = TTMarket.Products.Application.Exceptions.ValidationException;
 
 namespace TTMarket.Products.Application.Behaviors
 {
     internal sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-        where TRequest : notnull
+        where TRequest : class, ICommand<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 

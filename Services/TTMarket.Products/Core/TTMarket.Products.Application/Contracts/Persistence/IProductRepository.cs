@@ -13,5 +13,6 @@ namespace TTMarket.Products.Application.Contracts.Persistence
     {
         bool CheckNameUnique(string name, CancellationToken cancellationToken);
         Task<bool> CheckNameUniqueAsync(string name, CancellationToken cancellationToken);
+        Task<bool> CheckNameWhenUpdateUniqueAsync(Guid id, string name, CancellationToken cancellationToken);
     }
 }

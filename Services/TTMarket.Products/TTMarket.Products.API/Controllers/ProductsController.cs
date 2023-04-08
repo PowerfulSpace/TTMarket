@@ -19,29 +19,29 @@ namespace TTMarket.Products.API.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ProductDto>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
-            => Ok(await Mediator.Send(new GetAllProductsQuery()));
+            => Ok(await Sender.Send(new GetAllProductsQuery()));
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ProductDetailDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(Guid id, CancellationToken cancellationToken)
-            => Ok(await Mediator.Send(new GetProductByIdQuery(id), cancellationToken));
+            => Ok(await Sender.Send(new GetProductByIdQuery(id), cancellationToken));
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Post(ProductCreateDto product, CancellationToken cancellationToken)
-            => Ok(await Mediator.Send(new CreateProductCommand(product), cancellationToken));
+        public async Task<IActionResult> Post([FromBody] ProductCreateDto product, CancellationToken cancellationToken)
+            => Ok(await Sender.Send(new CreateProductCommand(product), cancellationToken));
 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put(Guid id, ProductUpdateDto product, CancellationToken cancellationToken)
-            => Ok(await Mediator.Send(new UpdateProductCommand(id, product), cancellationToken));
+        public async Task<IActionResult> Put(Guid id, [FromBody] ProductUpdateDto product, CancellationToken cancellationToken)
+            => Ok(await Sender.Send(new UpdateProductCommand(id, product), cancellationToken));
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
-            => Ok(await Mediator.Send(new DeleteProductCommand(id), cancellationToken));
+            => Ok(await Sender.Send(new DeleteProductCommand(id), cancellationToken));
     }
 }
