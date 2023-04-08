@@ -13,13 +13,6 @@ namespace TTMarket.Products.Persistence.Repositories
         public ProductRepository(IMongoDBConnection settings)
             : base(settings) { }
 
-        bool IProductRepository.CheckNameUnique(string name,
-                                                CancellationToken cancellationToken)
-        {
-            var filter = Builders<Product>.Filter.Eq(x => x.Name, name);
-            return _collection.Find(filter).Any();
-        }
-
         async Task<bool> IProductRepository.CheckNameUniqueAsync(string name,
                                                                  CancellationToken cancellationToken)
         {

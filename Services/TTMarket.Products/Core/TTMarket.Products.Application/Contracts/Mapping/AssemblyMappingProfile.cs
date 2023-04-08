@@ -5,7 +5,7 @@ using AutoMapper;
 
 namespace TTMarket.Products.Application.Contracts.Mapping
 {
-    internal sealed class AssemblyMappingProfile : Profile
+    public sealed class AssemblyMappingProfile : Profile
     {
         public AssemblyMappingProfile(Assembly assembly)
             => ApplyMappingFromAssembly(assembly);

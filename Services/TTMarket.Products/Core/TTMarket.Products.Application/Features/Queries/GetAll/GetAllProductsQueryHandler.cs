@@ -7,8 +7,8 @@ using TTMarket.Products.Application.Contracts.Persistence;
 
 namespace TTMarket.Products.Application.Features.Queries.GetAll
 {
-    public sealed record GetAllProductsQuery : IQuery<IEnumerable<ProductDto>>;
-    internal sealed class GetAllProductsQueryHandler : IQueryHandler<GetAllProductsQuery, IEnumerable<ProductDto>>
+    public sealed record GetAllProductsQuery : IQuery<List<ProductDto>>;
+    public sealed class GetAllProductsQueryHandler : IQueryHandler<GetAllProductsQuery, List<ProductDto>>
     {
         readonly IProductRepository _repository;
         readonly IMapper _mapper;
@@ -17,11 +17,11 @@ namespace TTMarket.Products.Application.Features.Queries.GetAll
             => (_repository, _mapper) 
             = (repository, mapper);
 
-        public async Task<IEnumerable<ProductDto>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
+        public async Task<List<ProductDto>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
             var products = await _repository.GetAllAsync(cancellationToken);
 
-            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products);
+            var productDtos = _mapper.Map<List<ProductDto>>(products);
 
             return productDtos;
         }

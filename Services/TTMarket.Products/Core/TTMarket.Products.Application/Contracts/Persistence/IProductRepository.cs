@@ -11,7 +11,6 @@ namespace TTMarket.Products.Application.Contracts.Persistence
     /// <typeparam name="T">type of an entity storage in the database</typeparam>
     public interface IProductRepository : IGenericRepository<Product>
     {
-        bool CheckNameUnique(string name, CancellationToken cancellationToken);
         Task<bool> CheckNameUniqueAsync(string name, CancellationToken cancellationToken);
         Task<bool> CheckNameWhenUpdateUniqueAsync(Guid id, string name, CancellationToken cancellationToken);
     }
