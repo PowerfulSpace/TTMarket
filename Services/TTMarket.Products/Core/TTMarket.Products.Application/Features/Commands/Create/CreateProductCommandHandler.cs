@@ -10,7 +10,8 @@ using TTMarket.Products.Domain;
 namespace TTMarket.Products.Application.Features.Commands.Create
 {
     public sealed record CreateProductCommand(ProductCreateDto Product) : ICommand<Unit>;
-    internal sealed class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, Unit>
+    
+    public sealed class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, Unit>
     {
         readonly IProductRepository _repository;
         readonly IMapper _mapper;

@@ -9,7 +9,8 @@ using TTMarket.Products.Application.Exceptions;
 namespace TTMarket.Products.Application.Features.Commands.Delete
 {
     public sealed record DeleteProductCommand(Guid Id) : ICommand<Unit>;
-    internal sealed class DeleteProductCommandHandler : ICommandHandler<DeleteProductCommand, Unit>
+    
+    public sealed class DeleteProductCommandHandler : ICommandHandler<DeleteProductCommand, Unit>
     {
         readonly IProductRepository _repository;
 

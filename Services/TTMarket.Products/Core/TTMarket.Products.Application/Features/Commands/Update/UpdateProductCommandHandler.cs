@@ -10,7 +10,8 @@ using TTMarket.Products.Application.Exceptions;
 namespace TTMarket.Products.Application.Features.Commands.Update
 {
     public sealed record UpdateProductCommand(Guid Id, ProductUpdateDto Product) : ICommand<Unit>;
-    internal sealed class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand, Unit>
+    
+    public sealed class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand, Unit>
     {
         readonly IProductRepository _repository;
         readonly IMapper _mapper;

@@ -8,6 +8,7 @@ using TTMarket.Products.Application.Contracts.Persistence;
 namespace TTMarket.Products.Application.Features.Queries.GetAll
 {
     public sealed record GetAllProductsQuery : IQuery<List<ProductDto>>;
+    
     public sealed class GetAllProductsQueryHandler : IQueryHandler<GetAllProductsQuery, List<ProductDto>>
     {
         readonly IProductRepository _repository;

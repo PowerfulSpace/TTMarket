@@ -109,7 +109,7 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
                     Tags = new List<string>()
                     {
                         "Samsung",
-                        "256b"
+                        "256Gb"
                     }
                 },
                 new Product() 
@@ -160,16 +160,32 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
                     Tags = new List<string>()
                     {
                         "Xiaomi",
-                        "256b"
+                        "256Gb"
                     }
                 }
             };
 
             var mockRepo = new Mock<IProductRepository>();
 
-            mockRepo.Setup(r => r.GetAllAsync(CancellationToken.None)).ReturnsAsync(products);
-            mockRepo.Setup(r => r.FindByIdAsync(new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300"),
-                                                CancellationToken.None)).ReturnsAsync(products[2]);
+            mockRepo.Setup(r => r.GetAllAsync(It.IsAny<CancellationToken>()))
+                .ReturnsAsync((CancellationToken cancellationToken) => 
+                { 
+                  return products; 
+                });
+
+            mockRepo.Setup(r => r.FindByIdAsync(It.IsAny<Guid>(),
+                                                It.IsAny<CancellationToken>()))
+                    .ReturnsAsync((Guid id, CancellationToken cancellationToken) => 
+                    {
+                        return products.Where(x => x.Id == id).FirstOrDefault();
+                    });
+
+            mockRepo.Setup(r => r.InsertOneAsync(It.IsAny<Product>(),
+                                                 It.IsAny<CancellationToken>()))
+                    .Callback((Product product, CancellationToken cancellationToken) => 
+                    {
+                       products.Add(product);
+                    });
 
             return mockRepo;
         }

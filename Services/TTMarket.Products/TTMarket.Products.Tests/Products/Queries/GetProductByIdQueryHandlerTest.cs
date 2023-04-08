@@ -26,7 +26,7 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Products.Queries
         }
 
         [Fact]
-        public async Task GetProductsTest()
+        public async Task GetProductTest()
         {
             var handler = new GetProductByIdQueryHandler(_mockRepo.Object, _mapper);
             var id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300");
