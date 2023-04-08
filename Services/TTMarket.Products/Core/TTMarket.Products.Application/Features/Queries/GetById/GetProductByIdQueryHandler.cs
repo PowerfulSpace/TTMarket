@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +8,7 @@ using TTMarket.Products.Application.Exceptions;
 
 namespace TTMarket.Products.Application.Features.Queries.GetById
 {
+    public sealed record GetProductByIdQuery(Guid Id) : IQuery<ProductDetailDto>;
     internal sealed class GetProductByIdQueryHandler : IQueryHandler<GetProductByIdQuery, ProductDetailDto>
     {
         readonly IProductRepository _repository;

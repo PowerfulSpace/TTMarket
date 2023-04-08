@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -7,6 +8,7 @@ using TTMarket.Products.Application.Exceptions;
 
 namespace TTMarket.Products.Application.Features.Commands.Delete
 {
+    public sealed record DeleteProductCommand(Guid Id) : ICommand<Unit>;
     internal sealed class DeleteProductCommandHandler : ICommandHandler<DeleteProductCommand, Unit>
     {
         readonly IProductRepository _repository;

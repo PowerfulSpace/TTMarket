@@ -14,7 +14,7 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests
                 CategoryId = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c201"),
                 Created = DateTime.Now,
                 Updated = null,
-                Name = "IPhone",
+                Name = "IPhone 13",
                 Price = 2023,
                 ShortDescription = "ShortDescription IPhone",
                 Description = "Description IPhone",
@@ -31,12 +31,32 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests
                 },
                 MainInformation = new Dictionary<string, string>()
                 {
-                    { "Created", "2023" },
-                    { "Updated", "2024" }
+                    { "Release Date", "2022" }
                 },
                 Specifications = new Dictionary<string, Dictionary<string, string>>()
                 {
-                    
+                    { 
+                        "Main", 
+                        new Dictionary<string, string>()
+                        {
+                            { "Type", "Smartphone" },
+                            { "Operation System", "Apple iOS" },
+                            { "Version of Operation System", "iOS 16" }
+                        }
+                    },
+                    {
+                        "Processor", 
+                        new Dictionary<string, string>()
+                        {
+                            { "Platform", "Apple A" },
+                            { "Processor", "Apple A15 Bionic" },
+                        }
+                    }
+                },
+                Tags = new List<string>()
+                {
+                    "Iphone",
+                    "128Gb"
                 }
             }
         };

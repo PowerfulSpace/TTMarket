@@ -25,7 +25,7 @@ namespace TTMarket.Products.Application.Middleware
             }
             catch (Exception e)
             {
-                _logger.LogError(e.Message);
+                _logger.LogError(e.ToString());
                 await HandleExceptionAsync(context, e);
             }
         }
@@ -56,6 +56,8 @@ namespace TTMarket.Products.Application.Middleware
         static string GetTitle(Exception exception) =>
             exception switch
             {
+                BadRequestException badRequestException => badRequestException.Title,
+                NotFoundException notFoundException => notFoundException.Title,
                 ApplicationException applicationException => applicationException.Title,
                 _ => "Server Error"
             };

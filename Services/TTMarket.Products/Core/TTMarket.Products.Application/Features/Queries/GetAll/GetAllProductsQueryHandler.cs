@@ -7,6 +7,7 @@ using TTMarket.Products.Application.Contracts.Persistence;
 
 namespace TTMarket.Products.Application.Features.Queries.GetAll
 {
+    public sealed record GetAllProductsQuery : IQuery<IEnumerable<ProductDto>>;
     internal sealed class GetAllProductsQueryHandler : IQueryHandler<GetAllProductsQuery, IEnumerable<ProductDto>>
     {
         readonly IProductRepository _repository;

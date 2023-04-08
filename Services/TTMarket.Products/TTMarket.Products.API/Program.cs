@@ -33,9 +33,9 @@ try
     var app = builder.Build();
     
     app.UseCors("CorsPolicy");
-    app.UseMiddleware<ExceptionHandlingMiddleware>();
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseMiddleware<ExceptionHandlingMiddleware>();
     app.MapControllers();
 
     app.Run();

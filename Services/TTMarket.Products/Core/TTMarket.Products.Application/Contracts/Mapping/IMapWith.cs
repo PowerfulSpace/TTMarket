@@ -2,7 +2,7 @@ using AutoMapper;
 
 namespace TTMarket.Products.Application.Contracts.Mapping
 {
-    public interface IMapWith<T>
+    internal interface IMapWith<T>
     {
         void Mapping(Profile profile)
             => profile.CreateMap(typeof(T), GetType());
