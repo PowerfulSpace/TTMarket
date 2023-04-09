@@ -5,16 +5,16 @@ using Services.TTMarket.Products.TTMarket.Products.Tests.Mocks;
 using Shouldly;
 using TTMarket.Products.Application.Contracts.Mapping;
 using TTMarket.Products.Application.Contracts.Persistence;
-using TTMarket.Products.Application.Features.Commands.Create;
+using TTMarket.Products.Application.Features.Commands.Update;
 
 namespace TTMarket.Products.Tests.Products.Commands
 {
-    public class CreateProductCommandHandlerTest
+    public class UpdateProductCommandHandlerTest
     {
         readonly IMapper _mapper;
         readonly Mock<IProductRepository> _mockRepo;
 
-        public CreateProductCommandHandlerTest()
+        public UpdateProductCommandHandlerTest()
         {
             _mockRepo = MockProductRepository.GetProductRepository();
 
@@ -31,8 +31,8 @@ namespace TTMarket.Products.Tests.Products.Commands
         {
             // Arrange
             var product = GetDto();
-            var command = new CreateProductCommand(product);
-            var handler = new CreateProductCommandHandler(_mockRepo.Object, _mapper);
+            var command = new UpdateProductCommand(new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300"), product);
+            var handler = new UpdateProductCommandHandler(_mockRepo.Object, _mapper);
             
             // Act
             var result = await handler.Handle(command, default);
@@ -40,9 +40,9 @@ namespace TTMarket.Products.Tests.Products.Commands
             // Assert
             result.ShouldBeOfType<Unit>();
         }
-        
-        private ProductCreateDto GetDto()
-            => new ProductCreateDto()
+
+        private ProductUpdateDto GetDto()
+            => new ProductUpdateDto()
             {
                 CategoryId = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c401"),
                 Name = "POCO X5 Pro",

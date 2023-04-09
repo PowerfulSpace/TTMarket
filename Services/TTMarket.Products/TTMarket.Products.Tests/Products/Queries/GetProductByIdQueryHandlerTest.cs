@@ -4,6 +4,7 @@ using Services.TTMarket.Products.TTMarket.Products.Tests.Mocks;
 using Shouldly;
 using TTMarket.Products.Application.Contracts.Mapping;
 using TTMarket.Products.Application.Contracts.Persistence;
+using TTMarket.Products.Application.Exceptions;
 using TTMarket.Products.Application.Features.Queries.GetById;
 
 namespace Services.TTMarket.Products.TTMarket.Products.Tests.Products.Queries
@@ -26,7 +27,7 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Products.Queries
         }
 
         [Fact]
-        public async Task GetProductTest()
+        public async Task Check_With_Valid_Id()
         {
             // Arrange
             var id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300");
@@ -39,6 +40,22 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Products.Queries
             // Assert
             result.ShouldBeOfType<ProductDetailDto>();
             result.Name.ShouldBe("Xiaomi 13");
+        }
+
+        [Fact]
+        public void Check_With_Invalid_Id()
+        {
+            // Arrange
+            var id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c400");
+            var command = new GetProductByIdQuery(id);
+            var handler = new GetProductByIdQueryHandler(_mockRepo.Object, _mapper);
+            var func = () => handler.Handle(command, default);
+
+            // Act
+            var result = Assert.ThrowsAsync<ProductNotFoundException>(func);
+
+            // Assert
+            result.Result.ShouldBeOfType<ProductNotFoundException>();
         }
     }
 }

@@ -12,7 +12,6 @@ namespace TTMarket.Products.Tests.Products.Commands
 {
     public class DeleteProductCommandHandlerTest
     {
-        readonly IMapper _mapper;
         readonly Mock<IProductRepository> _mockRepo;
 
         public DeleteProductCommandHandlerTest()
@@ -23,12 +22,10 @@ namespace TTMarket.Products.Tests.Products.Commands
             {
                 cfg.AddProfile(new AssemblyMappingProfile(typeof(IProductRepository).Assembly));
             });
-
-            _mapper = mapperConfig.CreateMapper();
         }
 
         [Fact]
-        public async Task DeleteProductTest()
+        public async Task Check_With_Valid_Id()
         {
             // Arrange
             var command = new DeleteProductCommand(new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300"));
@@ -42,17 +39,18 @@ namespace TTMarket.Products.Tests.Products.Commands
         }
 
         [Fact]
-        public async Task InvalidDeleteProductTest()
+        public void Check_With_Invalid_Id()
         {
             // Arrange
             var command = new DeleteProductCommand(new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c400"));
             var handler = new DeleteProductCommandHandler(_mockRepo.Object);
+            var func = () => handler.Handle(command, default);
 
             // Act
-            var result = await handler.Handle(command, default);
+            var result = Assert.ThrowsAsync<ProductNotFoundException>(func);
 
             // Assert
-            result.ShouldBeOfType<ProductNotFoundException>();
+            result.Result.ShouldBeOfType<ProductNotFoundException>();
         }
     }
 }
