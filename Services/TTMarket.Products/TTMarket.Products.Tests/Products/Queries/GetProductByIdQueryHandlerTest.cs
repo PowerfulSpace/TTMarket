@@ -7,7 +7,7 @@ using TTMarket.Products.Application.Contracts.Persistence;
 using TTMarket.Products.Application.Exceptions;
 using TTMarket.Products.Application.Features.Queries.GetById;
 
-namespace Services.TTMarket.Products.TTMarket.Products.Tests.Products.Queries
+namespace TTMarket.Products.Tests.Products.Queries
 {
     public class GetProductByIdQueryHandlerTest
     {

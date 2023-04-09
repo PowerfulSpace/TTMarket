@@ -5,7 +5,7 @@ using TTMarket.Products.Application.Contracts.Persistence;
 
 namespace TTMarket.Products.Application.Features.Commands.Create
 {
-    public sealed class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+    public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
     {
         readonly IProductRepository _repository;
 
@@ -20,7 +20,8 @@ namespace TTMarket.Products.Application.Features.Commands.Create
             
             RuleFor(x => x.Product.Price)
                 .NotEmpty().WithMessage("{PropertyName} is required")
-                .NotNull().WithMessage("{PropertyName} must not be null");
+                .NotNull().WithMessage("{PropertyName} must not be null")
+                .GreaterThan(0).WithMessage("{PropertyName} must not be greater than 0");
 
             RuleFor(x => x.Product.ShortDescription)
                 .NotEmpty().WithMessage("{PropertyName} is required")

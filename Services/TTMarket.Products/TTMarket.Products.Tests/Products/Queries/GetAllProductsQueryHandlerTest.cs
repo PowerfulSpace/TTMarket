@@ -6,7 +6,7 @@ using TTMarket.Products.Application.Contracts.Mapping;
 using TTMarket.Products.Application.Contracts.Persistence;
 using TTMarket.Products.Application.Features.Queries.GetAll;
 
-namespace Services.TTMarket.Products.TTMarket.Products.Tests.Products.Queries
+namespace TTMarket.Products.Tests.Products.Queries
 {
     public class GetAllProductsQueryHandlerTest
     {

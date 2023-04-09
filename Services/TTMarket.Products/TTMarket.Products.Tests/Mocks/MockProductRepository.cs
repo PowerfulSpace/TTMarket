@@ -60,6 +60,14 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
                         return products.Where(expression.Compile()).FirstOrDefault();
                     });
 
+            mockRepo.Setup(x => x.CheckNameUniqueAsync(It.IsAny<string>(),
+                                                       It.IsAny<CancellationToken>()))
+                    .ReturnsAsync((string name,
+                                   CancellationToken cancellationToken) => 
+                    {
+                        return products.Where(x => x.Name == name).Any();
+                    });
+
             return mockRepo;
         }
 
