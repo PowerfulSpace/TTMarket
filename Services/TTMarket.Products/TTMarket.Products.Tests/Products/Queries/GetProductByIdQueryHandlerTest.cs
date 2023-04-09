@@ -28,10 +28,15 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Products.Queries
         [Fact]
         public async Task GetProductTest()
         {
-            var handler = new GetProductByIdQueryHandler(_mockRepo.Object, _mapper);
+            // Arrange
             var id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300");
-            var result = await handler.Handle(new GetProductByIdQuery(id),
-                                              CancellationToken.None);
+            var command = new GetProductByIdQuery(id);
+            var handler = new GetProductByIdQueryHandler(_mockRepo.Object, _mapper);
+
+            // Act
+            var result = await handler.Handle(command, default);
+
+            // Assert
             result.ShouldBeOfType<ProductDetailDto>();
             result.Name.ShouldBe("Xiaomi 13");
         }

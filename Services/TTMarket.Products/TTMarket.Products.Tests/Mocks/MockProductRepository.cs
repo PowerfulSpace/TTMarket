@@ -1,5 +1,7 @@
+using MediatR;
 using Moq;
 using TTMarket.Products.Application.Contracts.Persistence;
+using TTMarket.Products.Application.Exceptions;
 using TTMarket.Products.Domain;
 
 namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
@@ -167,25 +169,41 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
 
             var mockRepo = new Mock<IProductRepository>();
 
-            mockRepo.Setup(r => r.GetAllAsync(It.IsAny<CancellationToken>()))
-                .ReturnsAsync((CancellationToken cancellationToken) => 
-                { 
-                  return products; 
-                });
+            mockRepo.Setup(x => x.GetAllAsync(It.IsAny<CancellationToken>()))
+                    .ReturnsAsync((CancellationToken cancellationToken) => 
+                    { 
+                        return products; 
+                    });
 
-            mockRepo.Setup(r => r.FindByIdAsync(It.IsAny<Guid>(),
+            mockRepo.Setup(x => x.FindByIdAsync(It.IsAny<Guid>(),
                                                 It.IsAny<CancellationToken>()))
                     .ReturnsAsync((Guid id, CancellationToken cancellationToken) => 
                     {
                         return products.Where(x => x.Id == id).FirstOrDefault();
                     });
 
-            mockRepo.Setup(r => r.InsertOneAsync(It.IsAny<Product>(),
+            mockRepo.Setup(x => x.InsertOneAsync(It.IsAny<Product>(),
                                                  It.IsAny<CancellationToken>()))
                     .Callback((Product product, CancellationToken cancellationToken) => 
                     {
                        products.Add(product);
                     });
+
+            mockRepo.Setup(x => x.ExistsAsync(It.IsAny<Guid>(),
+                                              It.IsAny<CancellationToken>()))
+                    .ReturnsAsync((Guid id, CancellationToken cancellationToken) => 
+                    {
+                        return products.Where(x => x.Id == id).Any();
+                    });
+
+            mockRepo.Setup(x => x.DeleteByIdAsync(It.IsAny<Guid>(),
+                                                  It.IsAny<CancellationToken>()))
+                    .Callback((Guid id, CancellationToken cancellationToken) => 
+                    {
+                        var productToRemove = products.Where(x => x.Id == id).First();
+                        products.Remove(productToRemove);
+                    });
+
 
             return mockRepo;
         }

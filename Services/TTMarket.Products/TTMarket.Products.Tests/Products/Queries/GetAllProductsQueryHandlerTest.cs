@@ -1,4 +1,3 @@
-using System.Reflection;
 using AutoMapper;
 using Moq;
 using Services.TTMarket.Products.TTMarket.Products.Tests.Mocks;
@@ -29,8 +28,14 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Products.Queries
         [Fact]
         public async Task GetProductsTest()
         {
+            // Arrange
+            var command = new GetAllProductsQuery();
             var handler = new GetAllProductsQueryHandler(_mockRepo.Object, _mapper);
-            var result = await handler.Handle(new GetAllProductsQuery(), CancellationToken.None);
+
+            // Act
+            var result = await handler.Handle(command, default);
+
+            // Assert
             result.ShouldBeOfType<List<ProductDto>>();
             result.Count.ShouldBe(3);
         }
