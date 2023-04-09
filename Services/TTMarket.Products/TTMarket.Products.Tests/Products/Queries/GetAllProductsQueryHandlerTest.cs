@@ -26,7 +26,7 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Products.Queries
         }
 
         [Fact]
-        public async Task Check()
+        public async Task Check_Get_All()
         {
             // Arrange
             var command = new GetAllProductsQuery();
