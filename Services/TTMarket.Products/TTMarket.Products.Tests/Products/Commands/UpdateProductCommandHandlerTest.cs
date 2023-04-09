@@ -5,6 +5,7 @@ using Services.TTMarket.Products.TTMarket.Products.Tests.Mocks;
 using Shouldly;
 using TTMarket.Products.Application.Contracts.Mapping;
 using TTMarket.Products.Application.Contracts.Persistence;
+using TTMarket.Products.Application.Exceptions;
 using TTMarket.Products.Application.Features.Commands.Update;
 
 namespace TTMarket.Products.Tests.Products.Commands
@@ -39,6 +40,22 @@ namespace TTMarket.Products.Tests.Products.Commands
             
             // Assert
             result.ShouldBeOfType<Unit>();
+        }
+
+        [Fact]
+        public void Check_With_Invalid_Id_Model()
+        {
+            // Arrange
+            var product = GetDto();
+            var command = new UpdateProductCommand(new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c400"), product);
+            var handler = new UpdateProductCommandHandler(_mockRepo.Object, _mapper);
+            var func = () => handler.Handle(command, default);
+            
+            // Act
+            var result = Assert.ThrowsAsync<ProductNotFoundException>(func);
+
+            // Assert
+            result.Result.ShouldBeOfType<ProductNotFoundException>();
         }
 
         private ProductUpdateDto GetDto()

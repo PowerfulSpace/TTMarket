@@ -57,7 +57,7 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
                     .ReturnsAsync((Expression<Func<Product, bool>> expression,
                                    CancellationToken cancellationToken) => 
                     { 
-                        return products.Where(expression.Compile()).First();
+                        return products.Where(expression.Compile()).FirstOrDefault();
                     });
 
             return mockRepo;
