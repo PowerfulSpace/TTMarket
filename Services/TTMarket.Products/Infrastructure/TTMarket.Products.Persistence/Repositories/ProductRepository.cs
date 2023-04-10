@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -13,24 +14,14 @@ namespace TTMarket.Products.Persistence.Repositories
         public ProductRepository(IMongoDBConnection settings)
             : base(settings) { }
 
-        async Task<bool> IProductRepository.CheckNameUniqueAsync(string name,
-                                                                 CancellationToken cancellationToken)
-        {
-            var filter = Builders<Product>.Filter.Eq(x => x.Name, name);
-            return await _collection.Find(filter).AnyAsync();
-        }
-
-        async Task<bool> IProductRepository.CheckNameWhenUpdateUniqueAsync(Guid id,
-                                                                           string name,
+        async Task<bool> IProductRepository.CheckNameWhenUpdateUniqueAsync(Expression<Func<Product, bool>> filterExpressionFirst,
+                                                                           Expression<Func<Product, bool>> filterExpressionSecond,
                                                                            CancellationToken cancellationToken)
         {       
-            var filterFirst = Builders<Product>.Filter.Eq(x => x.Id, id) &
-                              Builders<Product>.Filter.Eq(x => x.Name, name) |
-                              Builders<Product>.Filter.Not(Builders<Product>.Filter.Eq(x => x.Name, name));
-            var productFirstExists = await _collection.Find(filterFirst).AnyAsync();
-            var filterSecond = Builders<Product>.Filter.Not(Builders<Product>.Filter.Eq(x => x.Id, id)) &
-                               Builders<Product>.Filter.Eq(x => x.Name, name);
-            var productSecondExists = await _collection.Find(filterSecond).AnyAsync();
+            var productFirstExists = await _collection.Find(filter: filterExpressionFirst)
+                                                      .AnyAsync();
+            var productSecondExists = await _collection.Find(filter: filterExpressionSecond)
+                                                       .AnyAsync();
             if(productFirstExists && productSecondExists is false)
                 return true;
             return false;

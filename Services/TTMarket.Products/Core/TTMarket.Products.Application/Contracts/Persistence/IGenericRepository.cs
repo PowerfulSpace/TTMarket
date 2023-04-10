@@ -25,9 +25,6 @@ namespace TTMarket.Products.Application.Contracts.Persistence
         Task<TDocument> FindOneAsync(Expression<Func<TDocument, bool>> filterExpression,
                                      CancellationToken cancellationToken);
 
-        Task<TDocument> FindByIdAsync(Guid id,
-                                      CancellationToken cancellationToken);
-
         Task InsertOneAsync(TDocument document,
                             CancellationToken cancellationToken);
 
@@ -40,13 +37,10 @@ namespace TTMarket.Products.Application.Contracts.Persistence
         Task DeleteOneAsync(Expression<Func<TDocument, bool>> filterExpression,
                             CancellationToken cancellationToken);
 
-        Task DeleteByIdAsync(Guid id,
-                             CancellationToken cancellationToken);
-
         Task DeleteManyAsync(Expression<Func<TDocument, bool>> filterExpression,
                              CancellationToken cancellationToken);
 
-        Task<bool> ExistsAsync(Guid id,
+        Task<bool> ExistsAsync(Expression<Func<TDocument, bool>> filterExpression,
                                CancellationToken cancellationToken);
     }
 }

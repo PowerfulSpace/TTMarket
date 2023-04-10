@@ -25,12 +25,6 @@ namespace TTMarket.Products.Persistence.Repositories
         IQueryable<TDocument> IGenericRepository<TDocument>.AsQueryable()
             => _collection.AsQueryable();
 
-        async Task IGenericRepository<TDocument>.DeleteByIdAsync(Guid id,
-                                                                 CancellationToken cancellationToken)
-            => await _collection.FindOneAndDeleteAsync(filter: Builders<TDocument>.Filter
-                                                                                  .Eq(x => x.Id, id), 
-                                                       cancellationToken: cancellationToken);
-
         async Task IGenericRepository<TDocument>.DeleteManyAsync(Expression<Func<TDocument, bool>> filterExpression,
                                                                  CancellationToken cancellationToken)
             => await _collection.DeleteManyAsync(filter: filterExpression, 
@@ -41,10 +35,9 @@ namespace TTMarket.Products.Persistence.Repositories
             => _collection.DeleteOneAsync(filter: filterExpression, 
                                           cancellationToken: cancellationToken);
 
-        async Task<bool> IGenericRepository<TDocument>.ExistsAsync(Guid id,
+        async Task<bool> IGenericRepository<TDocument>.ExistsAsync(Expression<Func<TDocument, bool>> filterExpression,
                                                                    CancellationToken cancellationToken)
-            => await _collection.Find(filter: Builders<TDocument>.Filter
-                                                                 .Eq(x => x.Id, id))
+            => await _collection.Find(filter: filterExpression)
                                 .AnyAsync(cancellationToken: cancellationToken);
 
         List<TProjected> IGenericRepository<TDocument>.FilterBy<TProjected>(Expression<Func<TDocument, bool>> filterExpression,
@@ -53,12 +46,6 @@ namespace TTMarket.Products.Persistence.Repositories
             => _collection.Find(filter: filterExpression)
                           .Project(projection: projectionExpression)
                           .ToList(cancellationToken: cancellationToken);
-
-        async Task<TDocument> IGenericRepository<TDocument>.FindByIdAsync(Guid id,
-                                                                          CancellationToken cancellationToken)
-            => await _collection.Find(filter: Builders<TDocument>.Filter
-                                                                 .Eq(x => x.Id, id))
-                                .SingleOrDefaultAsync(cancellationToken: cancellationToken);
 
         async Task<TDocument> IGenericRepository<TDocument>.FindOneAsync(Expression<Func<TDocument, bool>> filterExpression,
                                                                          CancellationToken cancellationToken)

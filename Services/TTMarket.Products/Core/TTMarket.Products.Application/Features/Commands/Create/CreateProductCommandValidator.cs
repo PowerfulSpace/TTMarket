@@ -32,13 +32,15 @@ namespace TTMarket.Products.Application.Features.Commands.Create
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .NotNull().WithMessage("{PropertyName} must not be null");
 
-            RuleFor(x => x.Product.Name)
+            RuleFor(x => x)
                 .MustAsync(CheckIsNameUnique)
+                .WithName("Product.Name")
                 .WithMessage("Product with this name already exists");
         }
 
-        async Task<bool> CheckIsNameUnique(string name,
+        async Task<bool> CheckIsNameUnique(CreateProductCommand createProductCommand,
                                            CancellationToken cancellationToken)
-            => !await _repository.CheckNameUniqueAsync(name, cancellationToken);
+            => !await _repository.ExistsAsync(x => x.Name == createProductCommand.Product.Name,
+                                              cancellationToken);
     }
 }

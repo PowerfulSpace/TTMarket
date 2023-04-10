@@ -20,12 +20,12 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
                         return products; 
                     });
 
-            mockRepo.Setup(x => x.FindByIdAsync(It.IsAny<Guid>(),
-                                                It.IsAny<CancellationToken>()))
-                    .ReturnsAsync((Guid id,
+            mockRepo.Setup(x => x.FindOneAsync(It.IsAny<Expression<Func<Product, bool>>>(),
+                                               It.IsAny<CancellationToken>()))
+                    .ReturnsAsync((Expression<Func<Product, bool>> expression,
                                    CancellationToken cancellationToken) => 
                     {
-                        return products.Where(x => x.Id == id).FirstOrDefault();
+                        return products.Where(expression.Compile()).SingleOrDefault();
                     });
 
             mockRepo.Setup(x => x.InsertOneAsync(It.IsAny<Product>(),
@@ -36,20 +36,20 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
                        products.Add(product);
                     });
 
-            mockRepo.Setup(x => x.ExistsAsync(It.IsAny<Guid>(),
+            mockRepo.Setup(x => x.ExistsAsync(It.IsAny<Expression<Func<Product, bool>>>(),
                                               It.IsAny<CancellationToken>()))
-                    .ReturnsAsync((Guid id,
+                    .ReturnsAsync((Expression<Func<Product, bool>> expression,
                                    CancellationToken cancellationToken) => 
                     {
-                        return products.Where(x => x.Id == id).Any();
+                        return products.Where(expression.Compile()).Any();
                     });
 
-            mockRepo.Setup(x => x.DeleteByIdAsync(It.IsAny<Guid>(),
-                                                  It.IsAny<CancellationToken>()))
-                    .Callback((Guid id,
+            mockRepo.Setup(x => x.DeleteOneAsync(It.IsAny<Expression<Func<Product, bool>>>(),
+                                                 It.IsAny<CancellationToken>()))
+                    .Callback((Expression<Func<Product, bool>> expression,
                                CancellationToken cancellationToken) => 
                     {
-                        var productToRemove = products.Where(x => x.Id == id).First();
+                        var productToRemove = products.Where(expression.Compile()).First();
                         products.Remove(productToRemove);
                     });
 
@@ -61,12 +61,20 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
                         return products.Where(expression.Compile()).FirstOrDefault();
                     });
 
-            mockRepo.Setup(x => x.CheckNameUniqueAsync(It.IsAny<string>(),
-                                                       It.IsAny<CancellationToken>()))
-                    .ReturnsAsync((string name,
+            mockRepo.Setup(x => x.CheckNameWhenUpdateUniqueAsync(It.IsAny<Expression<Func<Product, bool>>>(),
+                                                                 It.IsAny<Expression<Func<Product, bool>>>(),
+                                                                 It.IsAny<CancellationToken>()))
+                    .ReturnsAsync((Expression<Func<Product, bool>> expressionFirst,
+                                   Expression<Func<Product, bool>> expressionSecond,
                                    CancellationToken cancellationToken) => 
                     {
-                        return products.Where(x => x.Name == name).Any();
+                        var firstExists = products.Where(expressionFirst.Compile())
+                                                  .Any();
+                        var secondExists = products.Where(expressionSecond.Compile())
+                                                   .Any();
+                        if(firstExists && secondExists is false)
+                            return true;
+                        return false;
                     });
 
             return mockRepo;

@@ -40,8 +40,11 @@ namespace TTMarket.Products.Application.Features.Commands.Update
 
         async Task<bool> CheckIsNameUnique(UpdateProductCommand updateProductCommand,
                                            CancellationToken cancellationToken)
-            => await _repository.CheckNameWhenUpdateUniqueAsync(updateProductCommand.Id,
-                                                                 updateProductCommand.Product.Name,
-                                                                 cancellationToken);
+            => await _repository.CheckNameWhenUpdateUniqueAsync(filterExpressionFirst: x => x.Id == updateProductCommand.Id && 
+                                                                                       x.Name == updateProductCommand.Product.Name | 
+                                                                                       x.Name != updateProductCommand.Product.Name,
+                                                                filterExpressionSecond: x => x.Id != updateProductCommand.Id && 
+                                                                                        x.Name == updateProductCommand.Product.Name,
+                                                                cancellationToken: cancellationToken);
     }
 }
