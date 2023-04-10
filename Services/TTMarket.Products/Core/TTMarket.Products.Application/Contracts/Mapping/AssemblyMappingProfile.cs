@@ -20,11 +20,11 @@ namespace TTMarket.Products.Application.Contracts.Mapping
             foreach (var type in types)
             {
                 var instance = Activator.CreateInstance(type);
-                InterfaceMapping map = type.GetInterfaceMap(type.GetInterfaces()
-                                                                .FirstOrDefault());
-                MethodInfo interfaceMethod = map.TargetMethods
-                                                .Where(x => x.Name.Contains("Mapping"))
-                                                .FirstOrDefault();
+                var map = type.GetInterfaceMap(type.GetInterfaces()
+                                                   .FirstOrDefault());
+                var interfaceMethod = map.TargetMethods
+                                          .Where(x => x.Name.Contains("Mapping"))
+                                          .FirstOrDefault();
                 interfaceMethod?.Invoke(instance, new object[] { this });
             }
         }
