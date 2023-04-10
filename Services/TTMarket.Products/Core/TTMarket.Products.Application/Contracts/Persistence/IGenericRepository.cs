@@ -14,13 +14,7 @@ namespace TTMarket.Products.Application.Contracts.Persistence
     /// <typeparam name="T">type of an entity storage in the database</typeparam>
     public interface IGenericRepository<TDocument> where TDocument : IDocument
     {
-        IQueryable<TDocument> AsQueryable();
-
         Task<List<TDocument>> GetAllAsync(CancellationToken cancellationToken);
-
-        List<TProjected> FilterBy<TProjected>(Expression<Func<TDocument, bool>> filterExpression,
-                                              Expression<Func<TDocument, TProjected>> projectionExpression,
-                                              CancellationToken cancellationToken);
 
         Task<TDocument> FindOneAsync(Expression<Func<TDocument, bool>> filterExpression,
                                      CancellationToken cancellationToken);

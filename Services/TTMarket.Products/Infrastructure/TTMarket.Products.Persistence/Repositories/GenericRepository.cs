@@ -22,9 +22,6 @@ namespace TTMarket.Products.Persistence.Repositories
             _collection = database.GetCollection<TDocument>(typeof(TDocument).Name);
         }
 
-        IQueryable<TDocument> IGenericRepository<TDocument>.AsQueryable()
-            => _collection.AsQueryable();
-
         async Task IGenericRepository<TDocument>.DeleteManyAsync(Expression<Func<TDocument, bool>> filterExpression,
                                                                  CancellationToken cancellationToken)
             => await _collection.DeleteManyAsync(filter: filterExpression, 
@@ -39,13 +36,6 @@ namespace TTMarket.Products.Persistence.Repositories
                                                                    CancellationToken cancellationToken)
             => await _collection.Find(filter: filterExpression)
                                 .AnyAsync(cancellationToken: cancellationToken);
-
-        List<TProjected> IGenericRepository<TDocument>.FilterBy<TProjected>(Expression<Func<TDocument, bool>> filterExpression,
-                                                                            Expression<Func<TDocument, TProjected>> projectionExpression,
-                                                                            CancellationToken cancellationToken)
-            => _collection.Find(filter: filterExpression)
-                          .Project(projection: projectionExpression)
-                          .ToList(cancellationToken: cancellationToken);
 
         async Task<TDocument> IGenericRepository<TDocument>.FindOneAsync(Expression<Func<TDocument, bool>> filterExpression,
                                                                          CancellationToken cancellationToken)
