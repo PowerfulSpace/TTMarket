@@ -34,7 +34,8 @@ namespace TTMarket.Products.Application.Features.Commands.Update
 
             RuleFor(x => x)
                 .MustAsync(CheckIsNameUnique)
-                .WithMessage("Product with this name already exists");
+                .WithName("Product.Name")
+                .WithMessage("{PropertyName} with this name already exists");
         }
 
         async Task<bool> CheckIsNameUnique(UpdateProductCommand updateProductCommand,
