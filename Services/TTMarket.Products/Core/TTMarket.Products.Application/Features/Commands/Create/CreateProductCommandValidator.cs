@@ -40,7 +40,7 @@ namespace TTMarket.Products.Application.Features.Commands.Create
 
         async Task<bool> CheckIsNameUnique(CreateProductCommand createProductCommand,
                                            CancellationToken cancellationToken)
-            => !await _repository.ExistsAsync(x => x.Name == createProductCommand.Product.Name,
-                                              cancellationToken);
+            => !await _repository.ExistsAsync(filterExpression: x => x.Name == createProductCommand.Product.Name,
+                                              cancellationToken: cancellationToken);
     }
 }
