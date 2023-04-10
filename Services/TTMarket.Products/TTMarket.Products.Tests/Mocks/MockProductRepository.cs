@@ -61,22 +61,6 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
                         return products.Where(expression.Compile()).FirstOrDefault();
                     });
 
-            mockRepo.Setup(x => x.CheckNameWhenUpdateUniqueAsync(It.IsAny<Expression<Func<Product, bool>>>(),
-                                                                 It.IsAny<Expression<Func<Product, bool>>>(),
-                                                                 It.IsAny<CancellationToken>()))
-                    .ReturnsAsync((Expression<Func<Product, bool>> expressionFirst,
-                                   Expression<Func<Product, bool>> expressionSecond,
-                                   CancellationToken cancellationToken) => 
-                    {
-                        var firstExists = products.Where(expressionFirst.Compile())
-                                                  .Any();
-                        var secondExists = products.Where(expressionSecond.Compile())
-                                                   .Any();
-                        if(firstExists && secondExists is false)
-                            return true;
-                        return false;
-                    });
-
             return mockRepo;
         }
 
