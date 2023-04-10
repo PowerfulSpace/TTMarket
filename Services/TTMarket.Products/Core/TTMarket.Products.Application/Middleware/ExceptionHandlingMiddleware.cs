@@ -45,6 +45,7 @@ namespace TTMarket.Products.Application.Middleware
             httpContext.Response.StatusCode = statusCode;
             await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
         }
+
         static int GetStatusCode(Exception exception) =>
             exception switch
             {
@@ -53,14 +54,14 @@ namespace TTMarket.Products.Application.Middleware
                 ValidationException => StatusCodes.Status422UnprocessableEntity,
                 _ => StatusCodes.Status500InternalServerError
             };
+
         static string GetTitle(Exception exception) =>
             exception switch
             {
-                BadRequestException badRequestException => badRequestException.Title,
-                NotFoundException notFoundException => notFoundException.Title,
                 ApplicationException applicationException => applicationException.Title,
                 _ => "Server Error"
             };
+            
         static IReadOnlyDictionary<string, string[]> GetErrors(Exception exception)
         {
             IReadOnlyDictionary<string, string[]> errors = null;
