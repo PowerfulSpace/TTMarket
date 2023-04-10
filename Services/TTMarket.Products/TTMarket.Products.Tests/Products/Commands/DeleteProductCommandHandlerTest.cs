@@ -13,6 +13,9 @@ namespace TTMarket.Products.Tests.Products.Commands
     public class DeleteProductCommandHandlerTest
     {
         readonly Mock<IProductRepository> _mockRepo;
+        Guid _id;
+        DeleteProductCommand _command;
+        readonly DeleteProductCommandHandler _handler;
 
         public DeleteProductCommandHandlerTest()
         {
@@ -22,17 +25,16 @@ namespace TTMarket.Products.Tests.Products.Commands
             {
                 cfg.AddProfile(new AssemblyMappingProfile(typeof(IProductRepository).Assembly));
             });
+            _id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300");
+            _command = new DeleteProductCommand(_id);
+            _handler = new DeleteProductCommandHandler(_mockRepo.Object);
         }
 
         [Fact]
         public async Task Check_With_Valid_Id()
         {
-            // Arrange
-            var command = new DeleteProductCommand(new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300"));
-            var handler = new DeleteProductCommandHandler(_mockRepo.Object);
-
             // Act
-            var result = await handler.Handle(command, default);
+            var result = await _handler.Handle(_command, default);
 
             // Assert
             result.ShouldBeOfType<Unit>();
@@ -42,9 +44,9 @@ namespace TTMarket.Products.Tests.Products.Commands
         public void Check_With_Invalid_Id()
         {
             // Arrange
-            var command = new DeleteProductCommand(new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c400"));
-            var handler = new DeleteProductCommandHandler(_mockRepo.Object);
-            var func = () => handler.Handle(command, default);
+            _id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c400");
+            _command = new DeleteProductCommand(_id);
+            var func = () => _handler.Handle(_command, default);
 
             // Act
             var result = Assert.ThrowsAsync<ProductNotFoundException>(func);

@@ -13,22 +13,21 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         readonly Mock<IProductRepository> _mockRepo;
         readonly ProductUpdateDto _model;
         readonly Guid _id;
+        readonly UpdateProductCommand _command;
         public UpdateProductCommandValidatorTest()
         {
             _mockRepo = MockProductRepository.GetProductRepository();
             _validator = new UpdateProductCommandValidator(_mockRepo.Object);
             _model = GetDto();
             _id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c200");
+            _command = new UpdateProductCommand(_id, _model);
         }
 
         [Fact]
         public async void Should_Not_Have_Error_When_Model_Is_Valid()
         {
-            // Arrange
-            var updateProductCommand = new UpdateProductCommand(_id, _model);
-
             // Act
-            var result = await _validator.TestValidateAsync(updateProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldNotHaveValidationErrorFor(x => x.Product.Name);
@@ -42,10 +41,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.Name = "Samsung Galaxy S23";
-            var updateProductCommand = new UpdateProductCommand(_id, _model);
 
             // Act
-            var result = await _validator.TestValidateAsync(updateProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldNotHaveValidationErrorFor(x => x.Product.Name);
@@ -59,10 +57,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.Name = null;
-            var updateProductCommand = new UpdateProductCommand(_id, _model);
 
             // Act
-            var result = await _validator.TestValidateAsync(updateProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.Name);
@@ -73,10 +70,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.Name = "IPhone 14";
-            var updateProductCommand = new UpdateProductCommand(_id, _model);
 
             // Act
-            var result = await _validator.TestValidateAsync(updateProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.Name);
@@ -87,10 +83,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.Price = 0;
-            var updateProductCommand = new UpdateProductCommand(_id, _model);
 
             // Act
-            var result = await _validator.TestValidateAsync(updateProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.Price);
@@ -101,10 +96,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.ShortDescription = null;
-            var updateProductCommand = new UpdateProductCommand(_id, _model);
 
             // Act
-            var result = await _validator.TestValidateAsync(updateProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.ShortDescription);
@@ -115,10 +109,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.ShortDescription = new String('-', 301);
-            var updateProductCommand = new UpdateProductCommand(_id, _model);
 
             // Act
-            var result = await _validator.TestValidateAsync(updateProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.ShortDescription);
@@ -129,10 +122,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.ImageUrls = null;
-            var updateProductCommand = new UpdateProductCommand(_id, _model);
 
             // Act
-            var result = await _validator.TestValidateAsync(updateProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.ImageUrls);

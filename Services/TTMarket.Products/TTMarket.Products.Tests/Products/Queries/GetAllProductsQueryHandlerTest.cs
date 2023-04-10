@@ -12,28 +12,26 @@ namespace TTMarket.Products.Tests.Products.Queries
     {
         readonly IMapper _mapper;
         readonly Mock<IProductRepository> _mockRepo;
+        GetAllProductsQuery _command;
+        readonly GetAllProductsQueryHandler _handler;
 
         public GetAllProductsQueryHandlerTest()
         {
             _mockRepo = MockProductRepository.GetProductRepository();
-
             var mapperConfig = new MapperConfiguration(cfg => 
             {
                 cfg.AddProfile(new AssemblyMappingProfile(typeof(IProductRepository).Assembly));
             });
-
             _mapper = mapperConfig.CreateMapper();
+            _command = new GetAllProductsQuery();
+            _handler = new GetAllProductsQueryHandler(_mockRepo.Object, _mapper);
         }
 
         [Fact]
         public async Task Check_Get_All()
         {
-            // Arrange
-            var command = new GetAllProductsQuery();
-            var handler = new GetAllProductsQueryHandler(_mockRepo.Object, _mapper);
-
             // Act
-            var result = await handler.Handle(command, default);
+            var result = await _handler.Handle(_command, default);
 
             // Assert
             result.ShouldBeOfType<List<ProductDto>>();

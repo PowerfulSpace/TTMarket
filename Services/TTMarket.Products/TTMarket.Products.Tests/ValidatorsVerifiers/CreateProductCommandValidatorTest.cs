@@ -13,21 +13,20 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         readonly CreateProductCommandValidator _validator;
         readonly Mock<IProductRepository> _mockRepo;
         readonly ProductCreateDto _model;
+        readonly CreateProductCommand _command;
         public CreateProductCommandValidatorTest()
         {
             _mockRepo = MockProductRepository.GetProductRepository();
             _validator = new CreateProductCommandValidator(_mockRepo.Object);
             _model = GetDto();
+            _command = new CreateProductCommand(_model);
         }
 
         [Fact]
         public async void Should_Not_Have_Error_When_Model_Is_Valid() 
         {
-            // Arrange
-            var createProductCommand = new CreateProductCommand(_model);
-
             // Act
-            var result = await _validator.TestValidateAsync(createProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldNotHaveValidationErrorFor(x => x.Product.Name);
@@ -41,10 +40,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.Name = null;
-            var createProductCommand = new CreateProductCommand(_model);
 
             // Act
-            var result = await _validator.TestValidateAsync(createProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.Name);
@@ -55,10 +53,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.Name = "IPhone 14";
-            var createProductCommand = new CreateProductCommand(_model);
 
             // Act
-            var result = await _validator.TestValidateAsync(createProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.Name);
@@ -69,10 +66,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.Price = 0;
-            var createProductCommand = new CreateProductCommand(_model);
 
             // Act
-            var result = await _validator.TestValidateAsync(createProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.Price);
@@ -83,10 +79,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.ShortDescription = null;
-            var createProductCommand = new CreateProductCommand(_model);
 
             // Act
-            var result = await _validator.TestValidateAsync(createProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.ShortDescription);
@@ -97,10 +92,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.ShortDescription = new String('-', 301);
-            var createProductCommand = new CreateProductCommand(_model);
 
             // Act
-            var result = await _validator.TestValidateAsync(createProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.ShortDescription);
@@ -111,10 +105,9 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
         {
             // Arrange
             _model.ImageUrls = null;
-            var createProductCommand = new CreateProductCommand(_model);
 
             // Act
-            var result = await _validator.TestValidateAsync(createProductCommand);
+            var result = await _validator.TestValidateAsync(_command);
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Product.ImageUrls);
