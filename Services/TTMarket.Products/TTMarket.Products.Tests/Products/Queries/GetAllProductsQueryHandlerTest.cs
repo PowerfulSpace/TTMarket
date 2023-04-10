@@ -12,7 +12,7 @@ namespace TTMarket.Products.Tests.Products.Queries
     {
         readonly IMapper _mapper;
         readonly Mock<IProductRepository> _mockRepo;
-        GetAllProductsQuery _command;
+        readonly GetAllProductsQuery _command;
         readonly GetAllProductsQueryHandler _handler;
 
         public GetAllProductsQueryHandlerTest()

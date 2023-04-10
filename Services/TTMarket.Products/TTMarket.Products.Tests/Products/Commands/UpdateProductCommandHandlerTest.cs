@@ -15,7 +15,7 @@ namespace TTMarket.Products.Tests.Products.Commands
     {
         readonly IMapper _mapper;
         readonly Mock<IProductRepository> _mockRepo;
-        ProductUpdateDto _model;
+        readonly ProductUpdateDto _model;
         Guid _id;
         UpdateProductCommand _command;
         readonly UpdateProductCommandHandler _handler;
