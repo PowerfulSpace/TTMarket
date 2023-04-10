@@ -3,7 +3,7 @@ using TTMarket.Products.Domain.Exceptions;
 
 namespace TTMarket.Products.Application.Exceptions
 {
-    internal sealed class ValidationException : ApplicationException
+    public sealed class ValidationException : ApplicationException
     {
         public ValidationException(IReadOnlyDictionary<string, string[]> errorsDictionary)
             : base("Validation Failure", "One or more validation errors occurred")
