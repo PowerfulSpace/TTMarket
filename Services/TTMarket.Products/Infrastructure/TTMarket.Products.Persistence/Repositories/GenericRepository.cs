@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,32 +47,18 @@ namespace TTMarket.Products.Persistence.Repositories
 
         async Task IGenericRepository<TDocument>.InsertManyAsync(ICollection<TDocument> documents,
                                                                  CancellationToken cancellationToken)
-        {
-            foreach (var item in documents)
-            {
-                item.Created = DateTime.Now;
-                item.Updated = null;
-            }
-            await _collection.InsertManyAsync(documents: documents,
-                                              cancellationToken: cancellationToken);
-        }
+            => await _collection.InsertManyAsync(documents: documents,
+                                                 cancellationToken: cancellationToken);
 
         async Task IGenericRepository<TDocument>.InsertOneAsync(TDocument document,
                                                                 CancellationToken cancellationToken)
-        {
-            document.Created = DateTime.Now;
-            document.Updated = null;
-            await _collection.InsertOneAsync(document: document,
-                                             cancellationToken: cancellationToken);
-        }
+            => await _collection.InsertOneAsync(document: document,
+                                                cancellationToken: cancellationToken);
 
-        async Task IGenericRepository<TDocument>.ReplaceOneAsync(TDocument document,
+        async Task IGenericRepository<TDocument>.ReplaceOneAsync(Expression<Func<TDocument, bool>> filterExpression,
+                                                                 TDocument document,
                                                                  CancellationToken cancellationToken)
-        {
-            document.Updated = DateTime.Now;
-            await _collection.ReplaceOneAsync(filter: Builders<TDocument>.Filter
-                                                                         .Eq(x => x.Id, document.Id),
-                                              replacement: document);
-        }
+            => await _collection.ReplaceOneAsync(filter: filterExpression,
+                                                 replacement: document);
     }
 }

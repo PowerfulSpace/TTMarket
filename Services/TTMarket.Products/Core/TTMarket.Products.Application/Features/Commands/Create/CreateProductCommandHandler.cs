@@ -23,9 +23,13 @@ namespace TTMarket.Products.Application.Features.Commands.Create
         public async Task<Unit> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
             var product = _mapper.Map<Product>(request.Product);
-            
-            await _repository.InsertOneAsync(product, cancellationToken);
-            
+
+            product.Created = DateTime.Now;
+            product.Updated = null;
+
+            await _repository.InsertOneAsync(document: product,
+                                             cancellationToken: cancellationToken);
+
             return Unit.Value;
         }
     }

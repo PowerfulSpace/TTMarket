@@ -22,14 +22,19 @@ namespace TTMarket.Products.Application.Features.Commands.Update
 
         public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _repository.FindOneAsync(x => x.Id == request.Id, cancellationToken);
+            var product = await _repository.FindOneAsync(filterExpression: x => x.Id == request.Id,
+                                                         cancellationToken: cancellationToken);
 
             if (product is null)
                 throw new ProductNotFoundException(request.Id.ToString());
 
             _mapper.Map(request.Product, product);
-            
-            await _repository.ReplaceOneAsync(product, cancellationToken);
+
+            product.Updated = DateTime.Now;
+
+            await _repository.ReplaceOneAsync(filterExpression: x => x.Id == product.Id,
+                                              document: product,
+                                              cancellationToken: cancellationToken);
 
             return Unit.Value;
         }

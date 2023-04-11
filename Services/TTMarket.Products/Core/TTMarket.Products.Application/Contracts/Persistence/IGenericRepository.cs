@@ -25,7 +25,8 @@ namespace TTMarket.Products.Application.Contracts.Persistence
         Task InsertManyAsync(ICollection<TDocument> documents,
                              CancellationToken cancellationToken);
 
-        Task ReplaceOneAsync(TDocument document,
+        Task ReplaceOneAsync(Expression<Func<TDocument, bool>> filterExpression,
+                             TDocument document,
                              CancellationToken cancellationToken);
 
         Task DeleteOneAsync(Expression<Func<TDocument, bool>> filterExpression,

@@ -21,13 +21,14 @@ namespace TTMarket.Products.Application.Features.Queries.GetById
 
         public async Task<ProductDetailDto> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _repository.FindOneAsync(x => x.Id == request.Id, cancellationToken);
+            var product = await _repository.FindOneAsync(filterExpression: x => x.Id == request.Id,
+                                                         cancellationToken: cancellationToken);
 
             if (product is null)
                 throw new ProductNotFoundException(request.Id.ToString());
 
             var productDto = _mapper.Map<ProductDetailDto>(product);
-            
+
             return productDto;
         }
     }

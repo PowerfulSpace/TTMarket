@@ -25,7 +25,7 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
                     .ReturnsAsync((Expression<Func<Product, bool>> expression,
                                    CancellationToken cancellationToken) => 
                     {
-                        return products.Where(expression.Compile()).SingleOrDefault();
+                        return products.Where(expression.Compile()).FirstOrDefault();
                     });
 
             mockRepo.Setup(x => x.InsertOneAsync(It.IsAny<Product>(),
@@ -53,12 +53,15 @@ namespace Services.TTMarket.Products.TTMarket.Products.Tests.Mocks
                         products.Remove(productToRemove);
                     });
 
-            mockRepo.Setup(x => x.FindOneAsync(It.IsAny<Expression<Func<Product, bool>>>(),
-                                               It.IsAny<CancellationToken>()))
-                    .ReturnsAsync((Expression<Func<Product, bool>> expression,
-                                   CancellationToken cancellationToken) => 
-                    { 
-                        return products.Where(expression.Compile()).FirstOrDefault();
+            mockRepo.Setup(x => x.ReplaceOneAsync(It.IsAny<Expression<Func<Product, bool>>>(),
+                                                  It.IsAny<Product>(),
+                                                  It.IsAny<CancellationToken>()))
+                    .Callback((Expression<Func<Product, bool>> expression,
+                               Product product,
+                               CancellationToken cancellationToken) => 
+                    {
+                        var productToUpdate = products.Where(expression.Compile()).First();
+                        productToUpdate = product;
                     });
 
             return mockRepo;

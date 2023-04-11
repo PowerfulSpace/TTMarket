@@ -19,12 +19,14 @@ namespace TTMarket.Products.Application.Features.Commands.Delete
 
         public async Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
-            var exists = await _repository.ExistsAsync(x => x.Id == request.Id, cancellationToken);
+            var exists = await _repository.ExistsAsync(filterExpression: x => x.Id == request.Id,
+                                                       cancellationToken: cancellationToken);
 
             if (!exists)
                 throw new ProductNotFoundException(request.Id.ToString());
 
-            await _repository.DeleteOneAsync(x => x.Id == request.Id, cancellationToken);
+            await _repository.DeleteOneAsync(filterExpression: x => x.Id == request.Id,
+                                             cancellationToken: cancellationToken);
 
             return Unit.Value;
         }

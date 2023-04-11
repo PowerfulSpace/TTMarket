@@ -20,7 +20,7 @@ namespace TTMarket.Products.Application.Features.Queries.GetAll
 
         public async Task<List<ProductDto>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
-            var products = await _repository.GetAllAsync(cancellationToken);
+            var products = await _repository.GetAllAsync(cancellationToken: cancellationToken);
 
             var productDtos = _mapper.Map<List<ProductDto>>(products);
 
