@@ -10,17 +10,16 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
 {
     public class CreateProductCommandValidatorTest
     {
-        readonly CreateProductCommandValidator _validator;
         readonly Mock<IProductRepository> _mockRepo;
+        readonly CreateProductCommandValidator _validator;
         readonly ProductCreateDto _model;
         readonly CreateProductCommand _command;
         public CreateProductCommandValidatorTest()
-        {
-            _mockRepo = MockProductRepository.GetProductRepository();
-            _validator = new CreateProductCommandValidator(_mockRepo.Object);
-            _model = GetDto();
-            _command = new CreateProductCommand(_model);
-        }
+            => (_mockRepo, _validator, _model, _command)
+            = (_mockRepo = MockProductRepository.GetProductRepository(),
+               _validator = new CreateProductCommandValidator(_mockRepo.Object),
+               _model = GetDto(),
+               _command = new CreateProductCommand(_model));
 
         [Fact]
         public async void Should_Not_Have_Error_When_Model_Is_Valid() 

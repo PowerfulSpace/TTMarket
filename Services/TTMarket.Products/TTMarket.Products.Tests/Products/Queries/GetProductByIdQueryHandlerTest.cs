@@ -18,17 +18,15 @@ namespace TTMarket.Products.Tests.Products.Queries
         readonly GetProductByIdQueryHandler _handler;
 
         public GetProductByIdQueryHandlerTest()
-        {
-            _mockRepo = MockProductRepository.GetProductRepository();
-            var mapperConfig = new MapperConfiguration(cfg => 
+         => (_mapper, _mockRepo, _id, _command, _handler)
+         = (_mapper = new MapperConfiguration(cfg => 
             {
                 cfg.AddProfile(new AssemblyMappingProfile(typeof(IProductRepository).Assembly));
-            });
-            _mapper = mapperConfig.CreateMapper();
-            _id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300");
-            _command = new GetProductByIdQuery(_id);
-            _handler = new GetProductByIdQueryHandler(_mockRepo.Object, _mapper);
-        }
+            }).CreateMapper(),
+            _mockRepo = MockProductRepository.GetProductRepository(),
+            _id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300"),
+            _command = new GetProductByIdQuery(_id),
+            _handler = new GetProductByIdQueryHandler(_mockRepo.Object, _mapper));
 
         [Fact]
         public async Task Check_With_Valid_Id()

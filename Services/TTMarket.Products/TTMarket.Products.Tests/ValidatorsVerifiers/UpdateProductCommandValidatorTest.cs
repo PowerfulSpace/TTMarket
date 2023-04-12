@@ -9,19 +9,18 @@ namespace TTMarket.Products.Tests.ValidatorsVerifiers
 {
     public class UpdateProductCommandValidatorTest
     {
-        readonly UpdateProductCommandValidator _validator;
         readonly Mock<IProductRepository> _mockRepo;
+        readonly UpdateProductCommandValidator _validator;
         readonly ProductUpdateDto _model;
         readonly Guid _id;
         readonly UpdateProductCommand _command;
         public UpdateProductCommandValidatorTest()
-        {
-            _mockRepo = MockProductRepository.GetProductRepository();
-            _validator = new UpdateProductCommandValidator(_mockRepo.Object);
-            _model = GetDto();
-            _id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c200");
-            _command = new UpdateProductCommand(_id, _model);
-        }
+            => (_mockRepo, _validator, _model, _id, _command)
+            = (_mockRepo = MockProductRepository.GetProductRepository(),
+               _validator = new UpdateProductCommandValidator(_mockRepo.Object),
+               _model = GetDto(),
+               _id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c200"),
+               _command = new UpdateProductCommand(_id, _model));
 
         [Fact]
         public async void Should_Not_Have_Error_When_Model_Is_Valid()

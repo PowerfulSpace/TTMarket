@@ -15,11 +15,9 @@ namespace TTMarket.Products.Persistence.Repositories
         protected readonly IMongoCollection<TDocument> _collection;
 
         public GenericRepository(IMongoDBConnection settings)
-        {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
-            _collection = database.GetCollection<TDocument>(typeof(TDocument).Name);
-        }
+            => _collection 
+            = new MongoClient(settings.ConnectionString).GetDatabase(settings.DatabaseName)
+                                                        .GetCollection<TDocument>(typeof(TDocument).Name);
 
         async Task IGenericRepository<TDocument>.DeleteManyAsync(Expression<Func<TDocument, bool>> filterExpression,
                                                                  CancellationToken cancellationToken)
