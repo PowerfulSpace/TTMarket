@@ -1,0 +1,113 @@
+[
+    {
+       "id":"ab2bd817-98cd-4cf3-a80a-53ea0cd9c100",
+       "categoryId":"ab2bd817-98cd-4cf3-a80a-53ea0cd9c101",
+       "created":"2023-10-04T13:33:03.969Z",
+       "updated":null,
+       "name":"IPhone 14",
+       "price":2022,
+       "shortDescription":"ShortDescription IPhone",
+       "description":"Description IPhone",
+       "mainImageUrl":"http://fake.com/images/MainIPhoneImage.jpg",
+       "imageUrls":[
+          "http://fake.com/images/MainIPhoneImage.jpg",
+          "http://fake.com/images/SecondIPhoneImage.jpg"
+       ],
+       "vendors":[
+          "ab2bd817-98cd-4cf3-a80a-53ea0cd9c102",
+          "ab2bd817-98cd-4cf3-a80a-53ea0cd9c103"
+       ],
+       "mainInformation":{
+          "Release Date":"2022"
+       },
+       "specifications":{
+          "Main":{
+             "Type":"Smartphone",
+             "Operation System":"Apple iOS",
+             "Version of Operation System":"iOS 16"
+          },
+          "Processor":{
+             "Platform":"Apple A",
+             "Processor":"Apple A15 Bionic"
+          }
+       },
+       "tags":[
+          "IPhone",
+          "128Gb"
+       ]
+    },
+    {
+       "id":"ab2bd817-98cd-4cf3-a80a-53ea0cd9c200",
+       "categoryId":"ab2bd817-98cd-4cf3-a80a-53ea0cd9c201",
+       "created":"2023-10-04T13:33:03.969Z",
+       "updated":null,
+       "name":"Samsung Galaxy S23",
+       "price":2022,
+       "shortDescription":"ShortDescription Samsung",
+       "description":"Description Samsung",
+       "mainImageUrl":"http://fake.com/images/MainSamsungImage.jpg",
+       "imageUrls":[
+          "http://fake.com/images/MainSamsungImage.jpg",
+          "http://fake.com/images/SecondSamsungImage.jpg"
+       ],
+       "vendors":[
+          "ab2bd817-98cd-4cf3-a80a-53ea0cd9c202",
+          "ab2bd817-98cd-4cf3-a80a-53ea0cd9c203"
+       ],
+       "mainInformation":{
+          "Release Date":"2023"
+       },
+       "specifications":{
+          "Main":{
+             "Type":"Smartphone",
+             "Operation System":"Android",
+             "Version of Operation System":"Android 13  (One UI 5.1)"
+          },
+          "Processor":{
+             "Platform":"Qualcomm Snapdragon",
+             "Processor":"Qualcomm Snapdragon 8 Gen2 SM8550"
+          }
+       },
+       "tags":[
+          "Samsung",
+          "256Gb"
+       ]
+    },
+    {
+       "id":"ab2bd817-98cd-4cf3-a80a-53ea0cd9c300",
+       "categoryId":"ab2bd817-98cd-4cf3-a80a-53ea0cd9c301",
+       "created":"2023-10-04T13:33:03.969Z",
+       "updated":null,
+       "name":"Xiaomi 13",
+       "price":2022,
+       "shortDescription":"ShortDescription Xiaomi",
+       "description":"Description Xiaomi",
+       "mainImageUrl":"http://fake.com/images/MainXiaomiImage.jpg",
+       "imageUrls":[
+          "http://fake.com/images/MainXiaomiImage.jpg",
+          "http://fake.com/images/SecondXiaomiImage.jpg"
+       ],
+       "vendors":[
+          "ab2bd817-98cd-4cf3-a80a-53ea0cd9c302",
+          "ab2bd817-98cd-4cf3-a80a-53ea0cd9c303"
+       ],
+       "mainInformation":{
+          "Release Date":"2022"
+       },
+       "specifications":{
+          "Main":{
+             "Type":"Smartphone",
+             "Operation System":"Android",
+             "Version of Operation System":"Android 13  (MIUI 14)"
+          },
+          "Processor":{
+             "Platform":"Qualcomm Snapdragon",
+             "Processor":"Qualcomm Snapdragon 8 Gen2 SM8550"
+          }
+       },
+       "tags":[
+          "Xiaomi",
+          "256Gb"
+       ]
+    }
+ ]

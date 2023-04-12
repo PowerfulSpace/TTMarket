@@ -1,0 +1,34 @@
+{
+    "categoryId":"ab2bd817-98cd-4cf3-a80a-53ea0cd9c401",
+    "name":"POCO X5 Pro",
+    "price":1199,
+    "shortDescription":"ShortDescription POCO X5 Pro",
+    "description":"Description POCO X5 Pro",
+    "mainImageUrl":"http://fake.com/images/MainPOCOX5ProImage.jpg",
+    "imageUrls":[
+       "http://fake.com/images/MainPOCOX5ProImage.jpg",
+       "http://fake.com/images/SecondPOCOX5ProImage.jpg"
+    ],
+    "vendors":[
+       "ab2bd817-98cd-4cf3-a80a-53ea0cd9c402",
+       "ab2bd817-98cd-4cf3-a80a-53ea0cd9c403"
+    ],
+    "mainInformation":{
+       "Release Date":"2023"
+    },
+    "specifications":{
+       "Main":{
+          "Type":"Smartphone",
+          "Operation System":"Android",
+          "Version of Operation System":"Android 12  (MIUI 14)"
+       },
+       "Processor":{
+          "Platform":"Qualcomm Snapdragon",
+          "Processor":"Qualcomm Snapdragon 778G"
+       }
+    },
+    "tags":[
+       "POCO",
+       "256Gb"
+    ]
+ }
