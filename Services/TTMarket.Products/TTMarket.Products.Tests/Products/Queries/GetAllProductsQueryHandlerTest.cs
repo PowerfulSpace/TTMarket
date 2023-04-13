@@ -16,16 +16,14 @@ namespace TTMarket.Products.Tests.Products.Queries
         readonly GetAllProductsQueryHandler _handler;
 
         public GetAllProductsQueryHandlerTest()
-        {
-            _mockRepo = MockProductRepository.GetProductRepository();
-            var mapperConfig = new MapperConfiguration(cfg => 
-            {
-                cfg.AddProfile(new AssemblyMappingProfile(typeof(IProductRepository).Assembly));
-            });
-            _mapper = mapperConfig.CreateMapper();
-            _command = new GetAllProductsQuery();
-            _handler = new GetAllProductsQueryHandler(_mockRepo.Object, _mapper);
-        }
+            => (_mapper, _mockRepo, _command, _handler)
+            = (_mapper = new MapperConfiguration(cfg => 
+               {
+                   cfg.AddProfile(new AssemblyMappingProfile(typeof(IProductRepository).Assembly));
+               }).CreateMapper(),
+               _mockRepo = MockProductRepository.GetProductRepository(),
+               _command = new GetAllProductsQuery(),
+               _handler = new GetAllProductsQueryHandler(_mockRepo.Object, _mapper));
 
         [Fact]
         public async Task Check_Get_All()

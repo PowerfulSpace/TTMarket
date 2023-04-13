@@ -7,6 +7,8 @@ namespace TTMarket.Products.Persistence.Repositories
     internal class ProductRepository : GenericRepository<Product>, IProductRepository
     {
         public ProductRepository(IMongoDBConnection settings)
-            : base(settings) { }
+            : base(settings) 
+        {
+        }
     }
 }

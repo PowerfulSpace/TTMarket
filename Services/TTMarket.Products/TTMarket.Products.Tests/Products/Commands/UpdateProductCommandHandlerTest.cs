@@ -21,18 +21,16 @@ namespace TTMarket.Products.Tests.Products.Commands
         readonly UpdateProductCommandHandler _handler;
 
         public UpdateProductCommandHandlerTest()
-        {
-            _mockRepo = MockProductRepository.GetProductRepository();
-            var mapperConfig = new MapperConfiguration(cfg => 
-            {
-                cfg.AddProfile(new AssemblyMappingProfile(typeof(IProductRepository).Assembly));
-            });
-            _mapper = mapperConfig.CreateMapper();
-            _model = GetDto();
-            _id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300");
-            _command = new UpdateProductCommand(_id, _model);
-            _handler = new UpdateProductCommandHandler(_mockRepo.Object, _mapper);
-        }
+            => (_mapper, _mockRepo, _model, _id, _command, _handler)
+            = (_mapper = new MapperConfiguration(cfg => 
+               {
+                   cfg.AddProfile(new AssemblyMappingProfile(typeof(IProductRepository).Assembly));
+               }).CreateMapper(),
+               _mockRepo = MockProductRepository.GetProductRepository(),
+               _model = GetDto(),
+               _id = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c300"),
+               _command = new UpdateProductCommand(_id, _model),
+               _handler = new UpdateProductCommandHandler(_mockRepo.Object, _mapper));
 
         [Fact]
         public async Task Check_With_Valid_Model()

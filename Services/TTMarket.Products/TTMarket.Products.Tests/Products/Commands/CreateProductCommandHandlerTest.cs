@@ -19,17 +19,15 @@ namespace TTMarket.Products.Tests.Products.Commands
         readonly CreateProductCommandHandler _handler;
 
         public CreateProductCommandHandlerTest()
-        {
-            _mockRepo = MockProductRepository.GetProductRepository();
-            var mapperConfig = new MapperConfiguration(cfg => 
-            {
-                cfg.AddProfile(new AssemblyMappingProfile(typeof(IProductRepository).Assembly));
-            });
-            _mapper = mapperConfig.CreateMapper();
-            _model = GetDto();
-            _command = new CreateProductCommand(_model);
-            _handler = new CreateProductCommandHandler(_mockRepo.Object, _mapper);
-        }
+            => (_mapper, _mockRepo, _model, _command, _handler)
+            = (_mapper = new MapperConfiguration(cfg => 
+               {
+                   cfg.AddProfile(new AssemblyMappingProfile(typeof(IProductRepository).Assembly));
+               }).CreateMapper(),
+               _mockRepo = MockProductRepository.GetProductRepository(),
+               _model = GetDto(),
+               _command = new CreateProductCommand(_model),
+               _handler = new CreateProductCommandHandler(_mockRepo.Object, _mapper));
 
         [Fact]
         public async Task Check_With_Valid_Model()
